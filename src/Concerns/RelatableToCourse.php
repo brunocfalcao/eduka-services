@@ -10,9 +10,9 @@ trait RelatableToCourse
     /**
      * Adds a new user to a course.
      *
-     * @param Course  $course
-     * @param bool $isAdmin
-     * @param bool $sendMail
+     * @param Course  $course Course instance
+     * @param bool $isAdmin Should be added with admin profile?
+     * @param bool $sendMail Send welcome email?
      *
      * @return void
      */
