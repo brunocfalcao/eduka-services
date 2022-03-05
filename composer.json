@@ -21,7 +21,10 @@
     "autoload": {
         "psr-4": {
             "Eduka\\Services\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "config": {
         "optimize-autoloader": true,
