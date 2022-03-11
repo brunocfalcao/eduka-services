@@ -7,6 +7,11 @@ use Eduka\Cube\Models\User;
 
 trait InteractsWithCourse
 {
+    public function withProduct(string $canonical)
+    {
+        return $this->products()->firstWhere('canonical', $canonical);
+    }
+
     public function addProduct(Product $product, bool $notify = false)
     {
         $product->course()->associate($this)->save();
@@ -14,10 +19,9 @@ trait InteractsWithCourse
 
     public function addUser(User $user, bool $asAdmin = false, bool $notify = false)
     {
-        $this->users()->syncWithPivotValues(
-            [$user->id],
-            ['is_admin' => $asAdmin]
-        );
+        $this->users()->attach([
+            $user->id => ['is_admin' => $asAdmin]
+        ]);
     }
 
     /**

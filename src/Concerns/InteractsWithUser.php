@@ -8,8 +8,8 @@ trait InteractsWithUser
 {
     public function addCourse(Course $course, bool $asAdmin = false, bool $notify = false)
     {
-        $course->users()->syncWithPivotValues([
-            $this->id,
-        ], ['is_admin' => $asAdmin]);
+        $this->courses()->attach([
+            $course->id => ['is_admin' => $asAdmin]
+        ]);
     }
 }
