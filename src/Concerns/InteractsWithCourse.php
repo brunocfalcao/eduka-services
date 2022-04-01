@@ -20,7 +20,7 @@ trait InteractsWithCourse
     public function addUser(User $user, bool $asAdmin = false, bool $notify = false)
     {
         $this->users()->attach([
-            $user->id => ['is_admin' => $asAdmin]
+            $user->id => ['is_admin' => $asAdmin],
         ]);
     }
 
