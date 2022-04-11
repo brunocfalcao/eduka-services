@@ -2,12 +2,12 @@
 
 namespace Eduka\Services\Concerns;
 
-use Eduka\Cube\Models\Product;
+use Eduka\Cube\Models\Course;
 
 trait InteractsWithAffiliate
 {
-    public function addProduct(Product $product, bool $notify = false)
+    public function addCourse(Course $course, bool $notify = false)
     {
-        $this->product()->associate($product)->save();
+        $this->course()->associate($course)->save();
     }
 }
