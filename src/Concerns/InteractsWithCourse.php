@@ -7,9 +7,9 @@ use Eduka\Cube\Models\User;
 
 trait InteractsWithCourse
 {
-    public function withProduct(string $canonical)
+    public function withProduct(string $type)
     {
-        return $this->products()->firstWhere('canonical', $canonical);
+        return $this->products()->firstWhere('type', $type);
     }
 
     public function addProduct(Product $product, bool $notify = false)
