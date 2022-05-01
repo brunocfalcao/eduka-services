@@ -70,6 +70,7 @@ trait KeepsSessionPersistence
                 if (! is_null($return)) {
                     session([$canonical => $return]);
                     info('session stored:' . $canonical . ' with ' . $return);
+                    info(session()->all());
                 }
             }
         }
