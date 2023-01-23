@@ -1,0 +1,42 @@
+{
+    "name": "brunocfalcao/eduka-services",
+    "description": "Mastering Nova - Laravel Nova official course",
+    "keywords": [
+        "brunocfalcao"
+    ],
+    "homepage": "https://github.com/brunocfalcao/eduka-services",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Bruno Falcão",
+            "email": "bruno.c.falcao@brunofalcao.me",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "illuminate/contracts": "^9.0",
+        "brunocfalcao/eduka-cube": "dev-master",
+        "brunocfalcao/eduka-abstracts": "dev-master",
+        "symfony/http-client": "^6.1",
+        "symfony/postmark-mailer": "^6.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Eduka\\Services\\": "src/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-eduka-servicess": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Eduka\\Services\\ServicesServiceProvider"
+            ]
+        }
+    }
+}
