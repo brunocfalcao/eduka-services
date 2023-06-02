@@ -5,8 +5,10 @@ namespace Eduka\Services;
 use Eduka\Abstracts\Classes\EdukaServiceProvider;
 use Eduka\Cube\Events\Courses\CourseSaved;
 use Eduka\Cube\Events\Domains\DomainSaved;
+use Eduka\Cube\Models\Subscriber;
 use Eduka\Services\Listeners\Courses\SendCourseSavedNotification;
 use Eduka\Services\Listeners\Domains\SendDomainSavedNotification;
+use Eduka\Services\Notifications\Domains\SubscriberSaved;
 use Illuminate\Support\Facades\Event;
 
 class ServicesServiceProvider extends EdukaServiceProvider
@@ -51,5 +53,11 @@ class ServicesServiceProvider extends EdukaServiceProvider
             CourseSaved::class,
             [SendCourseSavedNotification::class, 'handle']
         );
+
+        // @todo add comments
+        Event::listen(
+            SubscriberSaved::class,
+        );
+
     }
 }

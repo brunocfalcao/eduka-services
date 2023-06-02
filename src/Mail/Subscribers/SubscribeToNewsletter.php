@@ -1,7 +1,8 @@
 <?php
 
-namespace Eduka\Services\Mail\Domains;
+namespace Eduka\Services\Mail\Subscribers;
 
+use Eduka\Cube\Models\Course;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Address;
@@ -14,8 +15,12 @@ class SubscribeToNewsletter extends Mailable
     use Queueable, SerializesModels;
 
     public $message;
+    public Course $course;
 
-    public function __construct() {}
+    public function __construct(Course $course)
+    {
+        $this->course = $course;
+    }
 
     public function envelope()
     {
@@ -25,9 +30,9 @@ class SubscribeToNewsletter extends Mailable
         );
 
         // @todo udpate
-        $subject = "Mastering Nova Newsletter";
+        $subject = sprintf("Thank You for Subscribing to Our %s Newsletter!", $this->course->name);
 
-        $this->message = "Welcome to the Mastering Nova Newsletter. We'll keep you updated.";
+        $this->message = "Thank you for subscribing to our course newsletter! We're thrilled to have you as part of our exclusive community. Get ready to receive regular updates on our latest courses, industry insights, exclusive promotions, and invitations to special events. Welcome aboard!";
 
         return new Envelope(from: $address, subject: $subject);
     }
