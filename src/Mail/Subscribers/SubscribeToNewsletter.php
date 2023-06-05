@@ -3,6 +3,7 @@
 namespace Eduka\Services\Mail\Subscribers;
 
 use Eduka\Cube\Models\Course;
+use Eduka\Cube\Models\Subscriber;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Address;
@@ -15,10 +16,12 @@ class SubscribeToNewsletter extends Mailable
     use Queueable, SerializesModels;
 
     public $message;
-    public Course $course;
+    public Course $course; 
+    public Subscriber $subscriber;
 
-    public function __construct(Course $course)
+    public function __construct(Subscriber $subscriber, Course $course)
     {
+        $this->subscriber = $subscriber;
         $this->course = $course;
     }
 
