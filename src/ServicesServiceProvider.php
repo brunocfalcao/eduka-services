@@ -6,10 +6,9 @@ use Eduka\Abstracts\Classes\EdukaServiceProvider;
 use Eduka\Cube\Events\Courses\CourseSaved;
 use Eduka\Cube\Events\Domains\DomainSaved;
 use Eduka\Cube\Events\Domains\SubscriberCreated;
-use Eduka\Cube\Models\Subscriber;
 use Eduka\Services\Listeners\Courses\SendCourseSavedNotification;
 use Eduka\Services\Listeners\Domains\SendDomainSavedNotification;
-use Eduka\Services\Notifications\Domains\SubscriberSaved;
+use Eduka\Services\Listeners\Subscribers\SendSubscribedToNewsletterNotification;
 use Illuminate\Support\Facades\Event;
 
 class ServicesServiceProvider extends EdukaServiceProvider
@@ -55,11 +54,9 @@ class ServicesServiceProvider extends EdukaServiceProvider
             [SendCourseSavedNotification::class, 'handle']
         );
 
-        // @todo add comments
         Event::listen(
             SubscriberCreated::class,
-            []
+            [SendSubscribedToNewsletterNotification::class, 'handle']
         );
-
     }
 }
