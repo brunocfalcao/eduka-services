@@ -16,7 +16,7 @@ class SubscribeToNewsletter extends Mailable
     use Queueable, SerializesModels;
 
     public $message;
-    public Course $course; 
+    public Course $course;
     public Subscriber $subscriber;
 
     public function __construct(Subscriber $subscriber, Course $course)
@@ -29,7 +29,7 @@ class SubscribeToNewsletter extends Mailable
     {
         $address = new Address(
             config('eduka.mail.from.email'),
-            config('eduka.mail.from.name')
+            $this->course->admin_name
         );
 
         // @todo udpate
