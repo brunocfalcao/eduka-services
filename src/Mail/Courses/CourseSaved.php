@@ -15,6 +15,7 @@ class CourseSaved extends Mailable
     use Queueable, SerializesModels;
 
     public $message;
+
     public $course;
 
     public function __construct(Course $course)

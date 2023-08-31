@@ -10,6 +10,7 @@ use Eduka\Services\Mail\Subscribers\SubscribeToNewsletter;
 class SubscribedToNewsletter extends EdukaNotification
 {
     private Subscriber $subscriber;
+
     private Course $course;
 
     public function __construct(Subscriber $subscriber, Course $course)
@@ -17,6 +18,7 @@ class SubscribedToNewsletter extends EdukaNotification
         $this->subscriber = $subscriber;
         $this->course = $course;
     }
+
     public function toMail($notifiable)
     {
         // @todo find a better name

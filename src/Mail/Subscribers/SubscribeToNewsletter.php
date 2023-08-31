@@ -16,7 +16,9 @@ class SubscribeToNewsletter extends Mailable
     use Queueable, SerializesModels;
 
     public $message;
+
     public Course $course;
+
     public Subscriber $subscriber;
 
     public function __construct(Subscriber $subscriber, Course $course)
@@ -33,7 +35,7 @@ class SubscribeToNewsletter extends Mailable
         );
 
         // @todo udpate
-        $subject = sprintf("Thank You for Subscribing to Our %s Newsletter!", $this->course->name);
+        $subject = sprintf('Thank You for Subscribing to Our %s Newsletter!', $this->course->name);
 
         $this->message = "Thank you for subscribing to our course newsletter! We're thrilled to have you as part of our exclusive community. Get ready to receive regular updates on our latest courses, industry insights, exclusive promotions, and invitations to special events. Welcome aboard!";
 

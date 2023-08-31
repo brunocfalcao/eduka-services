@@ -15,6 +15,7 @@ class DomainSaved extends Mailable
     use Queueable, SerializesModels;
 
     public $message;
+
     public $domain;
 
     public function __construct(Domain $domain)
