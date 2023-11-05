@@ -27,8 +27,8 @@ class DomainSaved extends Mailable
     public function envelope()
     {
         $address = new Address(
-            config('eduka.mail.from.email'),
-            config('eduka.mail.from.name')
+            eduka_mail_from($this->course),
+            eduka_mail_name($this->course)
         );
 
         $action = $this->domain->wasChanged() ? 'updated' : 'created';

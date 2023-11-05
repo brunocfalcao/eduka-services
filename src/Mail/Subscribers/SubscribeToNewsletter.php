@@ -30,8 +30,8 @@ class SubscribeToNewsletter extends Mailable
     public function envelope()
     {
         $address = new Address(
-            config('eduka.mail.from.email'),
-            $this->course->admin_name
+            eduka_mail_from($this->course),
+            eduka_mail_name($this->course)
         );
 
         // @todo udpate
