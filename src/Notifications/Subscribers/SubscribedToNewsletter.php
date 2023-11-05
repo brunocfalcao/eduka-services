@@ -23,6 +23,6 @@ class SubscribedToNewsletter extends EdukaNotification
     {
         // @todo find a better name
         return (new SubscribeToNewsletter($this->subscriber, $this->course))
-                ->to(config('eduka.mail.to.email'));
+                ->to(eduka_mail_to($this->course));
     }
 }

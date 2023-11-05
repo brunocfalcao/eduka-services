@@ -10,6 +10,6 @@ class DomainSaved extends EdukaNotification
     public function toMail($notifiable)
     {
         return (new DomainSavedMail($notifiable))
-                ->to(config('eduka.mail.to.email'));
+                ->to(eduka_mail_to());
     }
 }
