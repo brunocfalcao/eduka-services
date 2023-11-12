@@ -8,7 +8,7 @@ use Eduka\Cube\Events\Domains\DomainSaved;
 use Eduka\Cube\Events\Subscribers\SubscriberCreated;
 use Eduka\Services\Listeners\Courses\SendCourseSavedNotification;
 use Eduka\Services\Listeners\Domains\SendDomainSavedNotification;
-use Eduka\Services\Listeners\Subscribers\SendSubscribedToNewsletterNotification;
+use Eduka\Services\Listeners\Subscribers\NewSubscription;
 use Illuminate\Support\Facades\Event;
 
 class ServicesServiceProvider extends EdukaServiceProvider
@@ -31,7 +31,7 @@ class ServicesServiceProvider extends EdukaServiceProvider
 
     protected function registerViews()
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'services');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'eduka-services');
     }
 
     protected function registerEvents()
@@ -56,7 +56,7 @@ class ServicesServiceProvider extends EdukaServiceProvider
 
         Event::listen(
             SubscriberCreated::class,
-            [SendSubscribedToNewsletterNotification::class, 'handle']
+            [NewSubscription::class, 'handle']
         );
     }
 }
