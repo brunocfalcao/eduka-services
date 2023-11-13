@@ -41,7 +41,7 @@
             </tr>
             <tr>
                 <td class="footer">
-                    Mastering Nova Course
+                    {{ $subscriber->course->name }}
                 </td>
             </tr>
         </table>
