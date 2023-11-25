@@ -4,6 +4,7 @@ namespace Eduka\Services\External\Backblaze;
 
 use Aws\S3\S3Client;
 use Aws\Credentials\Credentials;
+use Exception;
 use Illuminate\Support\Facades\Storage;
 
 class BackblazeClient
@@ -29,17 +30,61 @@ class BackblazeClient
         $this->rootPath = $rootPathInBucket;
     }
 
-    public function createBucket(string $courseName)
+    public function createBucket(string $bucketName)
     {
-        $courseName = str($courseName)->lower()->replace(' ', '')->trim()->toString();
+        $bucketName = $this->transformToProperBucketName($bucketName);
 
         try {
-            $response = $this->client->createBucket([
-                'Bucket' => $courseName,
+            $this->client->createBucket([
+                'Bucket' => $bucketName,
             ]);
 
-            return $response;
+            return $bucketName;
             // return new CreateBucketResponse($response);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    private function transformToProperBucketName(string $name)
+    {
+        return str($name)->lower()->replace(' ', '')->trim()->toString();
+    }
+
+    public function bucketExists(string $name) : bool
+    {
+        try {
+            return $this->client->doesBucketExistV2($name);
+
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Checks if the bucket exists or not.
+     * If not, creates one
+     *
+     * Returns bucket name
+     *
+     * The returned bucket name might be different from
+     * the one passed as parameter if the bucket was newly created.
+     * Because not all names are supported. For example
+     * Course 01 would not be accpeted, thus it is transformed to 'course01'.
+     *
+     * @param string $bucketName
+     * @return string
+     */
+    public function ensureBucketExists(string $bucketName, string $createNewBucketUsing) : string
+    {
+        try {
+            if($bucketName !== "" && $this->bucketExists($bucketName)) {
+                return $bucketName;
+            }
+
+            // Bucket does not exist, create
+            return $this->createBucket($createNewBucketUsing);
+
         } catch (\Exception $e) {
             throw $e;
         }
