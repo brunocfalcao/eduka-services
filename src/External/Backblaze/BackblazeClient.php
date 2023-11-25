@@ -75,10 +75,10 @@ class BackblazeClient
      * @param string $bucketName
      * @return string
      */
-    public function ensureBucketExists(string $bucketName, string $createNewBucketUsing) : string
+    public function ensureBucketExists(string|null $bucketName, string $createNewBucketUsing) : string
     {
         try {
-            if($bucketName !== "" && $this->bucketExists($bucketName)) {
+            if($bucketName && $bucketName !== "" && $this->bucketExists($bucketName)) {
                 return $bucketName;
             }
 
