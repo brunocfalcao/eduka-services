@@ -2,14 +2,15 @@
 
 namespace Eduka\Services\External\Backblaze;
 
-use Aws\S3\S3Client;
 use Aws\Credentials\Credentials;
+use Aws\S3\S3Client;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 
 class BackblazeClient
 {
     private S3Client $client;
+
     private string $rootPath;
 
     public function __construct(string $rootPathInBucket = 'videos')
@@ -23,7 +24,7 @@ class BackblazeClient
         $this->client = new S3Client([
             'version' => 'latest',
             'region' => $region,
-            'endpoint' => 'https://s3.' . $region . '.backblazeb2.com',
+            'endpoint' => 'https://s3.'.$region.'.backblazeb2.com',
             'credentials' => $credentials,
         ]);
 
@@ -46,12 +47,7 @@ class BackblazeClient
         }
     }
 
-    private function transformToProperBucketName(string $name)
-    {
-        return str($name)->lower()->replace(' ', '')->trim()->toString();
-    }
-
-    public function bucketExists(string $name) : bool
+    public function bucketExists(string $name): bool
     {
         try {
             return $this->client->doesBucketExistV2($name);
@@ -71,14 +67,11 @@ class BackblazeClient
      * the one passed as parameter if the bucket was newly created.
      * Because not all names are supported. For example
      * Course 01 would not be accpeted, thus it is transformed to 'course01'.
-     *
-     * @param string $bucketName
-     * @return string
      */
-    public function ensureBucketExists(string|null $bucketName, string $createNewBucketUsing) : string
+    public function ensureBucketExists(?string $bucketName, string $createNewBucketUsing): string
     {
         try {
-            if($bucketName && $bucketName !== "" && $this->bucketExists($bucketName)) {
+            if ($bucketName && $bucketName !== '' && $this->bucketExists($bucketName)) {
                 return $bucketName;
             }
 
@@ -96,12 +89,17 @@ class BackblazeClient
 
         $extension = Storage::mimeType($filePath);
 
-        $pathOnBackblaze = $this->rootPath . '/' . $saveAs . '.' . str($extension)->afterLast('/')->toString();
+        $pathOnBackblaze = $this->rootPath.'/'.$saveAs.'.'.str($extension)->afterLast('/')->toString();
 
         return $this->client->putObject([
             'Bucket' => $bucket,
-            'Key'    => $pathOnBackblaze,
-            'Body'   => $fileContents,
+            'Key' => $pathOnBackblaze,
+            'Body' => $fileContents,
         ]);
+    }
+
+    private function transformToProperBucketName(string $name)
+    {
+        return str($name)->lower()->replace(' ', '')->trim()->toString();
     }
 }

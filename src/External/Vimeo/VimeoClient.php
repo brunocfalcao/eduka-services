@@ -7,21 +7,25 @@ use Vimeo\Vimeo;
 
 class VimeoClient
 {
-    private Vimeo $client;
-
     private const VIMEO_URL_CREATE_NEW_PROJECT = '/me/projects';
+
     private const VIMEO_URL_GET_PROJECT = '/me/projects/%s';
+
     private const VIMEO_URL_PUT_VIDEO_IN_PROJECT = '/users/%s/projects/%s/videos/%s';
 
     private const HTTP_POST = 'POST';
+
     private const HTTP_GET = 'GET';
+
     private const HTTP_PUT = 'PUT';
 
     private const HTTP_HEADER = [
-        'Content-Type' => 'application/json'
+        'Content-Type' => 'application/json',
     ];
 
     private const HTTP_JSON = true;
+
+    private Vimeo $client;
 
     private string $vimeoUserId;
 
@@ -36,7 +40,7 @@ class VimeoClient
         return $this->client->upload($storagePath, $metadata);
     }
 
-    public function ensureProjectExists(string|null $vimeoProjectId, string $newProjectName): string
+    public function ensureProjectExists(?string $vimeoProjectId, string $newProjectName): string
     {
         if ($vimeoProjectId && $this->checkIfProjectExists($vimeoProjectId)) {
             return $vimeoProjectId;
@@ -46,7 +50,7 @@ class VimeoClient
         $newProjectResponse = $this->createProject($newProjectName);
 
         if ($newProjectResponse['status'] !== Response::HTTP_CREATED) {
-            throw new \Exception('Recevied api response from vimeo ' . $newProjectResponse['status'] . ' . Expecting 201');
+            throw new \Exception('Recevied api response from vimeo '.$newProjectResponse['status'].' . Expecting 201');
         }
 
         return $this->getIdFromResponse($newProjectResponse['body']['uri']);
@@ -86,13 +90,13 @@ class VimeoClient
         $response = $this->makeRequest($url, [], self::HTTP_PUT);
 
         if ($response['status'] >= Response::HTTP_BAD_REQUEST) {
-            throw new \Exception(sprintf("could not move video %s to project/folder %s", $videoId, $projectId));
+            throw new \Exception(sprintf('could not move video %s to project/folder %s', $videoId, $projectId));
         }
 
         return $response;
     }
 
-    private function makeRequest(string $url, array $params = [], string $method)
+    private function makeRequest(string $url, array $params, string $method)
     {
         try {
             $response = $this->client->request($url, $params, $method, self::HTTP_JSON, self::HTTP_HEADER);
