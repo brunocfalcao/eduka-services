@@ -9,9 +9,9 @@ class VimeoClient
 {
     private Vimeo $client;
 
-    private const VIMEO_URL_CREATE_NEW_PROJECT_URL = '/me/projects';
-    private const VIMEO_URL_GET_PROJECT_URL = '/me/projects/%s';
-    private const VIMEO_URL_PUT_VIDEO_IN_PROJECT_URL = '/users/%s/projects/%s/videos/%s';
+    private const VIMEO_URL_CREATE_NEW_PROJECT = '/me/projects';
+    private const VIMEO_URL_GET_PROJECT = '/me/projects/%s';
+    private const VIMEO_URL_PUT_VIDEO_IN_PROJECT = '/users/%s/projects/%s/videos/%s';
 
     private const HTTP_POST = 'POST';
     private const HTTP_GET = 'GET';
@@ -22,6 +22,7 @@ class VimeoClient
     ];
 
     private const HTTP_JSON = true;
+
     private string $vimeoUserId;
 
     public function __construct()
@@ -35,7 +36,7 @@ class VimeoClient
         return $this->client->upload($storagePath, $metadata);
     }
 
-    public function ensureProjectExists(string|null $vimeoProjectId, string $newProjectName) : string
+    public function ensureProjectExists(string|null $vimeoProjectId, string $newProjectName): string
     {
         if ($vimeoProjectId && $this->checkIfProjectExists($vimeoProjectId)) {
             return $vimeoProjectId;
@@ -58,44 +59,43 @@ class VimeoClient
 
     public function checkIfProjectExists(string $projectId): bool
     {
-        $url = sprintf(self::VIMEO_URL_GET_PROJECT_URL, $projectId);
+        $url = sprintf(self::VIMEO_URL_GET_PROJECT, $projectId);
 
-        try {
-            $response = $this->client->request($url, [], self::HTTP_GET, self::HTTP_JSON, self::HTTP_HEADER);
+        $response = $this->makeRequest($url, [], self::HTTP_GET);
 
-            return $response['status'] == Response::HTTP_OK;
-        } catch (\Exception $e) {
-            throw $e;
-        }
+        return $response['status'] == Response::HTTP_OK;
     }
 
     public function createProject(string $name): array
     {
-        $params = ['name' => $name,];
+        $params = ['name' => $name];
 
-        try {
-            $response = $this->client->request(self::VIMEO_URL_CREATE_NEW_PROJECT_URL, $params, self::HTTP_POST, self::HTTP_JSON, self::HTTP_HEADER);
+        $response = $this->makeRequest(self::VIMEO_URL_CREATE_NEW_PROJECT, $params, self::HTTP_POST);
 
-            if ($response['status'] >= Response::HTTP_BAD_REQUEST) {
-                throw new \Exception($response['body']['error']);
-            }
-
-            return $response;
-        } catch (\Exception $e) {
-            throw $e;
+        if ($response['status'] >= Response::HTTP_BAD_REQUEST) {
+            throw new \Exception($response['body']['error']);
         }
+
+        return $response;
     }
 
     public function moveVideoToFolder(string $projectId, string $videoId)
     {
-        $url = sprintf(self::VIMEO_URL_PUT_VIDEO_IN_PROJECT_URL, $this->vimeoUserId, $projectId, $videoId);
+        $url = sprintf(self::VIMEO_URL_PUT_VIDEO_IN_PROJECT, $this->vimeoUserId, $projectId, $videoId);
 
+        $response = $this->makeRequest($url, [], self::HTTP_PUT);
+
+        if ($response['status'] >= Response::HTTP_BAD_REQUEST) {
+            throw new \Exception(sprintf("could not move video %s to project/folder %s", $videoId, $projectId));
+        }
+
+        return $response;
+    }
+
+    private function makeRequest(string $url, array $params = [], string $method)
+    {
         try {
-            $response = $this->client->request($url, [], self::HTTP_PUT, self::HTTP_JSON, self::HTTP_HEADER);
-
-            if ($response['status'] >= Response::HTTP_BAD_REQUEST) {
-                throw new \Exception(sprintf("could not move video %s to project/folder %s", $videoId, $projectId));
-            }
+            $response = $this->client->request($url, $params, $method, self::HTTP_JSON, self::HTTP_HEADER);
 
             return $response;
         } catch (\Exception $e) {
