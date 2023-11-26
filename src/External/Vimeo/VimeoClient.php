@@ -2,7 +2,6 @@
 
 namespace Eduka\Services\External\Vimeo;
 
-use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 use Vimeo\Vimeo;
 
