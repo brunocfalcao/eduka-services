@@ -11,7 +11,7 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use League\CommonMark\CommonMarkConverter;
 
-class SubscribedToCourse extends Mailable
+class SubscribedToCourseMail extends Mailable
 {
     use Queueable, SerializesModels;
 

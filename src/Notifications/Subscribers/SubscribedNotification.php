@@ -5,9 +5,9 @@ namespace Eduka\Services\Notifications\Subscribers;
 use Eduka\Abstracts\Classes\EdukaNotification;
 use Eduka\Cube\Models\Course;
 use Eduka\Cube\Models\Subscriber;
-use Eduka\Services\Mail\Subscribers\SubscribedToCourse;
+use Eduka\Services\Mail\Subscribers\SubscribedToCourseMail;
 
-class Subscribed extends EdukaNotification
+class SubscribedNotification extends EdukaNotification
 {
     private Subscriber $subscriber;
 
@@ -20,7 +20,7 @@ class Subscribed extends EdukaNotification
 
     public function toMail($notifiable)
     {
-        return (new SubscribedToCourse($this->subscriber))
+        return (new SubscribedToCourseMail($this->subscriber))
                 ->to($this->subscriber->email);
     }
 }
