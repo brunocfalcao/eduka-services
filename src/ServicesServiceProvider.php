@@ -3,7 +3,9 @@
 namespace Eduka\Services;
 
 use Eduka\Abstracts\Classes\EdukaServiceProvider;
+use Eduka\Cube\Events\Orders\OrderCreated;
 use Eduka\Cube\Events\Subscribers\SubscriberCreated;
+use Eduka\Services\Listeners\Orders\NewOrder;
 use Eduka\Services\Listeners\Subscribers\NewSubscription;
 use Illuminate\Support\Facades\Event;
 
@@ -35,6 +37,11 @@ class ServicesServiceProvider extends EdukaServiceProvider
         Event::listen(
             SubscriberCreated::class,
             [NewSubscription::class, 'handle']
+        );
+
+        Event::listen(
+            OrderCreated::class,
+            [NewOrder::class, 'handle']
         );
     }
 }
