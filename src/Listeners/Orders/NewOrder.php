@@ -4,6 +4,7 @@ namespace Eduka\Services\Listeners\Orders;
 
 use Eduka\Cube\Events\Orders\OrderCreated;
 use Eduka\Cube\Models\User;
+use Eduka\Services\Notifications\Orders\NewOrderAndWelcomeNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
@@ -20,7 +21,6 @@ class NewOrder implements ShouldQueue
          *
          * 4. Update the order record with the user id.
          */
-
         $order = $event->order;
         $email = $order->email;
 
@@ -28,12 +28,12 @@ class NewOrder implements ShouldQueue
         $user = User::where('email', $email)->firstOrCreate([
             'email' => $order->user_email,
             'name' => $order->user_name,
-            'password' => Str::random(20)
+            'password' => Str::random(20),
         ]);
 
         // Update user for order, right away.
         $order->update([
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
 
         if ($user->wasRecentlyCreated) {
@@ -41,12 +41,21 @@ class NewOrder implements ShouldQueue
              * User was created on this lifecycle. We need to send
              * a welcome welcome email, and a password reset link.
              */
-            // Create a token for the user
+
+            // Create a password reset token for the user.
             $token = Password::broker()->createToken($user);
 
-            var_dump($token);
-            // Construct the password reset URL
-            //$resetUrl = url('/password/reset/' . $token . '?email=' . urlencode($user->email));
+            // Construct password reset url.
+            $url = route(
+                'eduka.dev.reset-password',
+                [
+                    'token' => $token,
+                    'email' => urlencode($user->email),
+                ]
+            );
+
+            // Send email notification.
+            $user->notify(new NewOrderAndWelcomeNotification($user, $order, $url));
         }
     }
 }
