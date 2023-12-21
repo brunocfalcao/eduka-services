@@ -3,7 +3,9 @@
 namespace Eduka\Services\Notifications\Orders;
 
 use Eduka\Abstracts\Classes\EdukaNotification;
-use Eduka\Services\Mail\Subscribers\OrderCompletedAndWelcomeMail;
+use Eduka\Cube\Models\Order;
+use Eduka\Cube\Models\User;
+use Eduka\Services\Mail\Orders\OrderCompletedAndWelcomeMail;
 
 class NewOrderAndWelcomeNotification extends EdukaNotification
 {

@@ -40,7 +40,12 @@ class OrderCompletedAndWelcomeMail extends Mailable
 
         $subject = sprintf('Thanks for buying %s', $this->order->variant->course->name);
 
-        $this->message('Reset link:' . $this->resetLink);
+        $this->message = sprintf("# Thanks for buying %s !", $this->order->variant->course->name);
+        $this->message .= PHP_EOL;
+        $this->message .= PHP_EOL;
+        $this->message .= "Hi there,";
+        $this->message .= PHP_EOL;
+        $this->message = 'Reset link:' . $this->resetLink;
 
         /*
         $this->message = '# Thanks for subscribing!'.PHP_EOL;
@@ -58,7 +63,7 @@ class OrderCompletedAndWelcomeMail extends Mailable
         $converter = new CommonMarkConverter();
 
         return new Content(
-            view: 'eduka-services::mail.subscribed-to-course',
+            view: 'eduka-services::mail.new-order-and-welcome',
             with: [
                 'content' => $converter->convertToHtml($this->message),
             ]

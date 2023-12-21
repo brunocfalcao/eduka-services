@@ -22,7 +22,7 @@
             display: block;
         }
         .footer {
-            font-size: 12px;
+            font-size: 18px;
             color: grey;
             text-align: center;
             padding: 10px 20px;
@@ -30,24 +30,18 @@
     </style>
 </head>
 <body>
-
     <div class="email-container">
-        <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0" alt="Header Image" class="header-image">
-
         <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
             <tr>
-                <td style="padding: 20px;">
+                <td>
                     {!! $content !!}
-                    <p>Peace,</p>
-                    <p><strong>{{ $subscriber->course->admin_name }}</strong><br>
-                    <img src="https://i.postimg.cc/RVPwkBTj/junior-ferreira-7es-RPTt38n-I-unsplash.jpg" alt="Signature Image" style="width: 50px; height: 50px;"></p>
+                    <p style="padding-top: 20px">Peace,</p>
+                    <p><strong>{{ $order->variant->course->admin_name }}</strong><br>
                 </td>
             </tr>
             <tr>
                 <td class="footer">
-                    Your Company Name<br>
-                    Your Company Address<br>
-                    <a href="unsubscribe-link">Unsubscribe</a>
+                    {{ $order->variant->course->name }}
                 </td>
             </tr>
         </table>
