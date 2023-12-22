@@ -17,7 +17,6 @@ class ServicesServiceProvider extends EdukaServiceProvider
 
         $this->registerEvents();
         $this->registerViews();
-        $this->registerCommands();
 
         parent::boot();
     }
