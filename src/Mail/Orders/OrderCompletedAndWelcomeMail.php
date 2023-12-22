@@ -40,12 +40,12 @@ class OrderCompletedAndWelcomeMail extends Mailable
 
         $subject = sprintf('Thanks for buying %s', $this->order->variant->course->name);
 
-        $this->message = sprintf("# Thanks for buying %s !", $this->order->variant->course->name);
+        $this->message = sprintf('# Thanks for buying %s !', $this->order->variant->course->name);
         $this->message .= PHP_EOL;
         $this->message .= PHP_EOL;
-        $this->message .= "Hi there,";
+        $this->message .= 'Hi there,';
         $this->message .= PHP_EOL;
-        $this->message = 'Reset link:' . $this->resetLink;
+        $this->message = 'Reset link:'.$this->resetLink;
 
         /*
         $this->message = '# Thanks for subscribing!'.PHP_EOL;
