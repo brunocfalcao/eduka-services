@@ -42,7 +42,7 @@ class BackblazeClient
 
             return $bucketName;
             // return new CreateBucketResponse($response);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw $e;
         }
     }
@@ -78,7 +78,7 @@ class BackblazeClient
             // Bucket does not exist, create
             return $this->createBucket($createNewBucketUsing);
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw $e;
         }
     }
