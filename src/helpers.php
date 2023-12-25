@@ -10,7 +10,7 @@ function eduka_mail_from(?Course $course = null)
 
 function eduka_mail_name(?Course $course = null)
 {
-    return $course ? $course->admin_from :
+    return $course ? $course->admin_name :
                      config('eduka.mail.from.name');
 }
 
