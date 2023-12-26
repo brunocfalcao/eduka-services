@@ -22,7 +22,7 @@ class NewOrder implements ShouldQueue
          * 4. Update the order record with the user id.
          */
         $order = $event->order;
-        $email = $order->email;
+        $email = $order->user_email;
 
         // Does the email exist? -- If not, create user.
         $user = User::where('email', $email)->firstOrCreate([
