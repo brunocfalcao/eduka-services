@@ -11,6 +11,8 @@ class VimeoClient
 
     private const VIMEO_URL_GET_PROJECT = '/me/projects/%s';
 
+    private const VIMEO_URL_UPDATE_VIDEO = '/videos/%s';
+
     private const VIMEO_URL_PUT_VIDEO_IN_PROJECT = '/users/%s/projects/%s/videos/%s';
 
     private const HTTP_POST = 'POST';
@@ -18,6 +20,8 @@ class VimeoClient
     private const HTTP_GET = 'GET';
 
     private const HTTP_PUT = 'PUT';
+
+    private const HTTP_PATCH = 'PATCH';
 
     private const HTTP_HEADER = [
         'Content-Type' => 'application/json',
