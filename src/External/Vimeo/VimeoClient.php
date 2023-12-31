@@ -44,6 +44,19 @@ class VimeoClient
         return $this->client->upload($storagePath, $metadata);
     }
 
+    public function updateVideoDetails(string $videoId, array $updateParams): array
+    {
+        $url = sprintf(self::VIMEO_URL_UPDATE_VIDEO, $videoId);
+
+        $response = $this->makeRequest($url, $updateParams, self::HTTP_PATCH);
+
+        if ($response['status'] >= Response::HTTP_BAD_REQUEST) {
+            throw new \Exception(sprintf('Failed to update video %s. Status: %s', $videoId, $response['status']));
+        }
+
+        return $response;
+    }
+
     public function ensureProjectExists(?string $vimeoProjectId, string $newProjectName): string
     {
         if ($vimeoProjectId && $this->checkIfProjectExists($vimeoProjectId)) {
