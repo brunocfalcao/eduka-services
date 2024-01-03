@@ -39,7 +39,7 @@ class NewOrder implements ShouldQueue
         if ($user->wasRecentlyCreated) {
             /**
              * User was created on this lifecycle. We need to send
-             * a welcome welcome email, and a password reset link.
+             * a welcome email, and a password reset link.
              */
 
             // Create a password reset token for the user.
@@ -47,7 +47,7 @@ class NewOrder implements ShouldQueue
 
             // Construct password reset url.
             $url = route(
-                'eduka.dev.reset-password',
+                'password.reset',
                 [
                     'token' => $token,
                     'email' => urlencode($user->email),
