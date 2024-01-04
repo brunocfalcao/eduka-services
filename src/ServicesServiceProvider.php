@@ -6,6 +6,7 @@ use Eduka\Abstracts\Classes\EdukaServiceProvider;
 use Eduka\Cube\Events\Orders\OrderCreated;
 use Eduka\Cube\Events\Subscribers\SubscriberCreated;
 use Eduka\Cube\Events\Videos\VideoNameChanged;
+use Eduka\Services\Commands\TestCommand;
 use Eduka\Services\Listeners\Orders\NewOrder;
 use Eduka\Services\Listeners\Subscribers\NewSubscription;
 use Eduka\Services\Listeners\Videos\UpdateVideoName;
@@ -19,6 +20,7 @@ class ServicesServiceProvider extends EdukaServiceProvider
 
         $this->registerEvents();
         $this->registerViews();
+        $this->registerCommands();
 
         parent::boot();
     }
@@ -49,5 +51,12 @@ class ServicesServiceProvider extends EdukaServiceProvider
             VideoNameChanged::class,
             [UpdateVideoName::class, 'handle']
         );
+    }
+
+    protected function registerCommands()
+    {
+        $this->commands([
+            TestCommand::class,
+        ]);
     }
 }

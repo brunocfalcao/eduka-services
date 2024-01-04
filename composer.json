@@ -20,6 +20,7 @@
         "brunocfalcao/eduka-cube": "dev-master",
         "brunocfalcao/eduka-abstracts": "dev-master",
         "brunocfalcao/laravel-zepto-mail-api-driver": "dev-master",
+        "brunocfalcao/laravel-vimeo-client": "dev-master",
         "symfony/http-client": "^6.1",
         "symfony/postmark-mailer": "^6.1"
     },

@@ -5,7 +5,7 @@ namespace Eduka\Services\External\Vimeo;
 use Symfony\Component\HttpFoundation\Response;
 use Vimeo\Vimeo;
 
-class VimeoClient
+class __VimeoClient
 {
     private const VIMEO_URL_CREATE_NEW_PROJECT = '/me/projects';
 
