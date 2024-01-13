@@ -3,13 +3,19 @@
 namespace Eduka\Services;
 
 use Eduka\Abstracts\Classes\EdukaServiceProvider;
-use Eduka\Cube\Events\Orders\OrderCreated;
-use Eduka\Cube\Events\Subscribers\SubscriberCreated;
-use Eduka\Cube\Events\Videos\VideoNameChanged;
+use Eduka\Cube\Events\Chapters\ChapterCreatedEvent;
+use Eduka\Cube\Events\Chapters\ChapterRenamedEvent;
+use Eduka\Cube\Events\Courses\CourseCreatedEvent;
+use Eduka\Cube\Events\Courses\CourseRenamedEvent;
+use Eduka\Cube\Events\Orders\OrderCreatedEvent;
+use Eduka\Cube\Events\Subscribers\SubscriberCreatedEvent;
 use Eduka\Services\Commands\TestCommand;
-use Eduka\Services\Listeners\Orders\NewOrder;
-use Eduka\Services\Listeners\Subscribers\NewSubscription;
-use Eduka\Services\Listeners\Videos\UpdateVideoName;
+use Eduka\Services\Listeners\Chapters\ChapterCreatedListener;
+use Eduka\Services\Listeners\Chapters\ChapterRenamedListener;
+use Eduka\Services\Listeners\Courses\CourseCreatedListener;
+use Eduka\Services\Listeners\Courses\CourseRenamedListener;
+use Eduka\Services\Listeners\Orders\OrderCreatedListener;
+use Eduka\Services\Listeners\Subscribers\SubscriberCreatedListener;
 use Illuminate\Support\Facades\Event;
 
 class ServicesServiceProvider extends EdukaServiceProvider
@@ -38,18 +44,33 @@ class ServicesServiceProvider extends EdukaServiceProvider
     protected function registerEvents()
     {
         Event::listen(
-            SubscriberCreated::class,
-            [NewSubscription::class, 'handle']
+            SubscriberCreatedEvent::class,
+            [SubscriberCreatedListener::class, 'handle']
         );
 
         Event::listen(
-            OrderCreated::class,
-            [NewOrder::class, 'handle']
+            OrderCreatedEvent::class,
+            [OrderCreatedListener::class, 'handle']
         );
 
         Event::listen(
-            VideoNameChanged::class,
-            [UpdateVideoName::class, 'handle']
+            ChapterCreatedEvent::class,
+            [ChapterCreatedListener::class, 'handle']
+        );
+
+        Event::listen(
+            ChapterRenamedEvent::class,
+            [ChapterRenamedListener::class, 'handle']
+        );
+
+        Event::listen(
+            CourseCreatedEvent::class,
+            [CourseCreatedListener::class, 'handle']
+        );
+
+        Event::listen(
+            CourseRenamedEvent::class,
+            [CourseRenamedListener::class, 'handle']
         );
     }
 

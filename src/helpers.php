@@ -2,20 +2,20 @@
 
 use Eduka\Cube\Models\Course;
 
-function eduka_mail_from(?Course $course = null)
+function eduka_mail_from(?Course $course)
 {
-    return $course ? $course->admin_email :
-                     config('eduka.mail.from.email');
+    // Get the admin user for the contextualized course.
+    return $course->adminUser->email;
 }
 
 function eduka_mail_name(?Course $course = null)
 {
-    return $course ? $course->admin_name :
-                     config('eduka.mail.from.name');
+    // Get the admin user name for the contextualized course.
+    return $course->adminUser->name;
 }
 
 function eduka_mail_to(?Course $course = null)
 {
-    return $course ? $course->admin_email :
-                     config('eduka.mail.to');
+    // Get the admin user for the contextualized course.
+    return $course->adminUser->email;
 }

@@ -6,7 +6,7 @@ namespace Eduka\Services\External\Vimeo;
 
 use Vimeo\Laravel\Facades\Vimeo;
 
-class VimeoClient
+class __VimeoClient2
 {
     protected $videoId;
 

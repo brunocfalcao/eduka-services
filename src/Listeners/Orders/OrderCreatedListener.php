@@ -2,16 +2,16 @@
 
 namespace Eduka\Services\Listeners\Orders;
 
-use Eduka\Cube\Events\Orders\OrderCreated;
+use Eduka\Cube\Events\Orders\OrderCreatedEvent;
 use Eduka\Cube\Models\User;
 use Eduka\Services\Notifications\Orders\NewOrderAndWelcomeNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
-class NewOrder implements ShouldQueue
+class OrderCreatedListener implements ShouldQueue
 {
-    public function handle(OrderCreated $event)
+    public function handle(OrderCreatedEvent $event)
     {
         /**
          * Order is created. Someone bought your course!

@@ -4,7 +4,9 @@ namespace Eduka\Services\Commands;
 
 use Brunocfalcao\VimeoClient\Facades\VimeoClient;
 use Eduka\Abstracts\Classes\EdukaCommand;
+use Eduka\Cube\Models\Chapter;
 use Eduka\Cube\Models\Course;
+use Illuminate\Support\Str;
 
 class TestCommand extends EdukaCommand
 {
@@ -19,6 +21,18 @@ class TestCommand extends EdukaCommand
 
     public function handle()
     {
+        /*
+        $course = Course::all()->first();
+        $course->name = Str::random(20);
+        $course->save();
+        */
+
+        $chapter = Chapter::all()->first();
+        $chapter->name = Str::random(20);
+        $chapter->save();
+
+        $this->info('Ok.');
+
         /*
         $videoId = VimeoClient::upload(
             resource_path('file-1.mp4'),
@@ -40,11 +54,22 @@ class TestCommand extends EdukaCommand
 
         //dd(VimeoClient::request('/users/{user_id}/folders'));
 
-        $course = Course::find(1)->first();
+        //$course = Course::find(1)->first();
 
-        $folder = VimeoClient::createFolder($course->name);
+        //dd(VimeoClient::upsertFolder('Laraning new videos', null, '47f269a6af138a7fad2d4962596c3407479c7bc9'));
 
-        $course->update(['vimeo_folder_uri' => $folder['body']['uri']]);
+        /**
+        $folder = VimeoClient::upsertFolder('test');
+
+        foreach ($folder['body']['data'] as $item) {
+            $this->info($item['name'] . ' - ' . $item['resource_key']);
+        }
+
+        VimeoClient::upsertFolder('New Laraning Videos', '47f269a6af138a7fad2d4962596c3407479c7bc9');
+         **/
+        //dd($folder['body']['data'][0]);
+
+        //$course->update(['vimeo_folder_uri' => $folder['body']['uri']]);
 
         //dd(array_keys($folder['body']['uri']));
 
@@ -54,7 +79,7 @@ class TestCommand extends EdukaCommand
 
         //$this->paragraph('video id: ' . $videoId);
 
-        $this->info('All good.');
+        //$this->info('All good.');
 
         return 0;
     }

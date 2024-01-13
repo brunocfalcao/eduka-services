@@ -36,7 +36,7 @@
                 <td>
                     {!! $content !!}
                     <p style="padding-top: 20px">Peace,</p>
-                    <p><strong>{{ $subscriber->course->admin_name }}</strong><br>
+                    <p><strong>{{ $subscriber->course->adminUser->name }}</strong><br>
                 </td>
             </tr>
             <tr>

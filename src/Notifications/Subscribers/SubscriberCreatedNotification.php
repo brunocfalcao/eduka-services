@@ -7,7 +7,7 @@ use Eduka\Cube\Models\Course;
 use Eduka\Cube\Models\Subscriber;
 use Eduka\Services\Mail\Subscribers\SubscribedToCourseMail;
 
-class SubscribedNotification extends EdukaNotification
+class SubscriberCreatedNotification extends EdukaNotification
 {
     private Subscriber $subscriber;
 
