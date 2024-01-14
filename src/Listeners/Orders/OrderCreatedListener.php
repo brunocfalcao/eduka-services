@@ -2,6 +2,7 @@
 
 namespace Eduka\Services\Listeners\Orders;
 
+use Eduka\Abstracts\Classes\EdukaListener;
 use Eduka\Cube\Events\Orders\OrderCreatedEvent;
 use Eduka\Cube\Models\User;
 use Eduka\Services\Notifications\Orders\NewOrderAndWelcomeNotification;
@@ -9,7 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
-class OrderCreatedListener implements ShouldQueue
+class OrderCreatedListener extends EdukaListener
 {
     public function handle(OrderCreatedEvent $event)
     {
