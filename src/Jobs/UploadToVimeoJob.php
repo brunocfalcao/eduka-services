@@ -39,7 +39,7 @@ class UploadToVimeoJob implements ShouldQueue
             $vimeoClient = new VimeoClient();
 
             $validator->ensureDataExistsInDatabase()
-                      ->ensureVideoExistsOnDisk();
+                ->ensureVideoExistsOnDisk();
 
             $newVimeoProjectId = $vimeoClient->ensureProjectExists($validator->getVimeoProjectId(), $validator->getCourseName());
 
@@ -65,9 +65,9 @@ class UploadToVimeoJob implements ShouldQueue
             $message = 'Upload to Vimeo error: '.$e->getMessage().' on file '.$e->getFile().' on line '.$e->getLine();
             User::firstWhere('id', $this->userId)->notify(
                 NovaNotification::make()
-                ->message($message)
-                ->icon('download')
-                ->type('error')
+                    ->message($message)
+                    ->icon('download')
+                    ->type('error')
             );
         }
     }

@@ -21,6 +21,6 @@ class SubscriberCreatedNotification extends EdukaNotification
     public function toMail($notifiable)
     {
         return (new SubscribedToCourseMail($this->subscriber))
-                ->to($this->subscriber->email);
+            ->to($this->subscriber->email);
     }
 }

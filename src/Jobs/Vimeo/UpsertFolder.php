@@ -1,10 +1,8 @@
 <?php
 
-namespace Eduka\Services\Jobs\Common;
+namespace Eduka\Services\Jobs\Vimeo;
 
 use Brunocfalcao\VimeoClient\Facades\VimeoClient;
-use Eduka\Cube\Models\Chapter;
-use Eduka\Cube\Models\Course;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -12,30 +10,38 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class RenameVimeoFolder implements ShouldQueue
+class UpsertFolder implements ShouldQueue
 {
     use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public Chapter|Course $model;
+    public $model;
 
-    public function __construct(Chapter|Course $model)
+    public $parentUri;
+
+    public $folderId;
+
+    public function __construct($model, $parentUri = null, $folderId = null)
     {
         $this->model = $model;
+        $this->parentUri = $parentUri;
+        $this->folderId = $folderId;
     }
 
     public function handle()
     {
         // Grab the vimeo_folder_id for the change.
         $data = VimeoClient::upsertFolder(
-            $model->name,
-            null,
-            $model->folder_id
+            $this->model->name,
+            $this->parentUri,
+            $this->folderId
         );
 
+        $uri = $data['body']['uri'];
+
         // Update the vimeo uri and vimeo folder id.
-        $model->update([
-            'vimeo_uri' => $data['body']['uri'],
-            'vimeo_folder_id' => last(explode('/', $data['body']['uri'])),
+        $this->model->update([
+            'vimeo_uri' => $uri,
+            'vimeo_folder_id' => last(explode('/', $uri)),
         ]);
     }
 }

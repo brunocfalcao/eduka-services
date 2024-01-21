@@ -25,6 +25,6 @@ class NewOrderAndWelcomeNotification extends EdukaNotification
     public function toMail($notifiable)
     {
         return (new OrderCompletedAndWelcomeMail($this->user, $this->order, $this->url))
-                ->to($this->user->email);
+            ->to($this->user->email);
     }
 }

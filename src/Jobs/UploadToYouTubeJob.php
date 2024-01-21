@@ -35,9 +35,9 @@ class UploadToYouTubeJob implements ShouldQueue
             $message = 'Upload to YouTube error: '.$e->getMessage().' on file '.$e->getFile().' on line '.$e->getLine();
             User::firstWhere('id', $this->userId)->notify(
                 NovaNotification::make()
-                ->message($message)
-                ->icon('download')
-                ->type('error')
+                    ->message($message)
+                    ->icon('download')
+                    ->type('error')
             );
         }
     }

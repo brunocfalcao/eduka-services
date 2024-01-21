@@ -4,7 +4,7 @@ namespace Eduka\Services\Listeners\Chapters;
 
 use Eduka\Abstracts\Classes\EdukaListener;
 use Eduka\Cube\Events\Chapters\ChapterCreatedEvent;
-use Eduka\Services\Jobs\Common\UpsertVimeoFolder;
+use Eduka\Services\Jobs\Vimeo\UpsertFolder;
 use Illuminate\Bus\Batch;
 use Illuminate\Support\Facades\Bus;
 
@@ -27,12 +27,24 @@ class ChapterCreatedListener extends EdukaListener
         }
 
         $batch = Bus::batch([
-            new UpsertVimeoFolder(
+            new UpsertFolder(
                 $event->chapter,
                 $event->chapter->course->vimeo_uri
             ),
-        ])->then(function (Batch $batch) {
-            // Send notification to course admin.
+        ])->then(function (Batch $batch) use ($event) {
+            // Notify the course chapter admin.
+            nova_notify($event->chapter->course->adminUser, [
+                'message' => '[ VIMEO ] - Chapter created ('.$event->chapter->name.')',
+                'icon' => 'document-duplicate',
+                'type' => 'info',
+            ]);
+        })->catch(function (Batch $batch, Throwable $e) use ($event) {
+            // Notify the course chapter admin.
+            nova_notify($event->chapter->course->adminUser, [
+                'message' => $e->message(),
+                'icon' => 'exclamation-circle',
+                'type' => 'error',
+            ]);
         })->dispatch();
     }
 }

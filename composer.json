@@ -22,6 +22,7 @@
         "brunocfalcao/laravel-zepto-mail-api-driver": "dev-master",
         "brunocfalcao/laravel-vimeo-client": "dev-master",
         "symfony/http-client": "^6.1",
+        "laravel/nova": "^4.0",
         "symfony/postmark-mailer": "^6.1"
     },
     "autoload": {

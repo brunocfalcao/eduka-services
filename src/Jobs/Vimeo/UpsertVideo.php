@@ -1,6 +1,6 @@
 <?php
 
-namespace Eduka\Services\Jobs;
+namespace Eduka\Services\Jobs\Vimeo;
 
 use Eduka\Cube\Models\User;
 use Eduka\Cube\Models\Video;
@@ -13,7 +13,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Laravel\Nova\Notifications\NovaNotification;
 
-class ChangeVideoNameJob implements ShouldQueue
+class UpsertVideo implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -38,9 +38,9 @@ class ChangeVideoNameJob implements ShouldQueue
             $message = 'Name change Vimeo error: '.$e->getMessage().' on file '.$e->getFile().' on line '.$e->getLine();
             User::firstWhere('id', $this->video->createdBy)->notify(
                 NovaNotification::make()
-                ->message($message)
-                ->icon('download')
-                ->type('error')
+                    ->message($message)
+                    ->icon('download')
+                    ->type('error')
             );
         }
     }

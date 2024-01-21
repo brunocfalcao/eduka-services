@@ -6,7 +6,6 @@ use Eduka\Abstracts\Classes\EdukaListener;
 use Eduka\Cube\Events\Orders\OrderCreatedEvent;
 use Eduka\Cube\Models\User;
 use Eduka\Services\Notifications\Orders\NewOrderAndWelcomeNotification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
