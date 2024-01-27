@@ -43,35 +43,47 @@ class ServicesServiceProvider extends EdukaServiceProvider
 
     protected function registerEvents()
     {
-        Event::listen(
-            SubscriberCreatedEvent::class,
-            [SubscriberCreatedListener::class, 'handle']
-        );
+        /**
+         * Events are registered conditionally, meaning we look at the
+         * config file to know what events can be registered.
+         */
+        if (config('eduka.events.observers.subscriber') === true) {
+            Event::listen(
+                SubscriberCreatedEvent::class,
+                [SubscriberCreatedListener::class, 'handle']
+            );
+        }
 
-        Event::listen(
-            OrderCreatedEvent::class,
-            [OrderCreatedListener::class, 'handle']
-        );
+        if (config('eduka.events.observers.order') === true) {
+            Event::listen(
+                OrderCreatedEvent::class,
+                [OrderCreatedListener::class, 'handle']
+            );
+        }
 
-        Event::listen(
-            ChapterCreatedEvent::class,
-            [ChapterCreatedListener::class, 'handle']
-        );
+        if (config('eduka.events.observers.chapter') === true) {
+            Event::listen(
+                ChapterCreatedEvent::class,
+                [ChapterCreatedListener::class, 'handle']
+            );
 
-        Event::listen(
-            ChapterRenamedEvent::class,
-            [ChapterRenamedListener::class, 'handle']
-        );
+            Event::listen(
+                ChapterRenamedEvent::class,
+                [ChapterRenamedListener::class, 'handle']
+            );
+        }
 
-        Event::listen(
-            CourseCreatedEvent::class,
-            [CourseCreatedListener::class, 'handle']
-        );
+        if (config('eduka.events.observers.course') === true) {
+            Event::listen(
+                CourseCreatedEvent::class,
+                [CourseCreatedListener::class, 'handle']
+            );
 
-        Event::listen(
-            CourseRenamedEvent::class,
-            [CourseRenamedListener::class, 'handle']
-        );
+            Event::listen(
+                CourseRenamedEvent::class,
+                [CourseRenamedListener::class, 'handle']
+            );
+        }
     }
 
     protected function registerCommands()
