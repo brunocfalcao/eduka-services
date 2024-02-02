@@ -2,8 +2,9 @@
 
 namespace Eduka\Services\Commands;
 
-use Eduka\Abstracts\Classes\EdukaCommand;
 use Eduka\Cube\Models\User;
+use Brunocfalcao\Tokenizer\Models\Token;
+use Eduka\Abstracts\Classes\EdukaCommand;
 
 class TestCommand extends EdukaCommand
 {
@@ -18,11 +19,8 @@ class TestCommand extends EdukaCommand
 
     public function handle()
     {
-        // Let's delete my test user so we can use it for testing purposes.
-        User::where('email', env('MN_OR_TEST_EMAIL'))->first()
-            ->videosThatWereCompleted()
-            ->detach();
+        $token = Token::createToken()->token;
 
-        User::where('email', env('MN_OR_TEST_EMAIL'))->forceDelete();
+        Token::burn($token);
     }
 }
