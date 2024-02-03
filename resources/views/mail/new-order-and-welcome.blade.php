@@ -36,12 +36,12 @@
                 <td>
                     {!! $content !!}
                     <p style="padding-top: 20px">Peace,</p>
-                    <p><strong>{{ $order->variant->course->admin_name }}</strong><br>
+                    <p><strong>{{ $order->course->adminUser->name }}</strong><br>
                 </td>
             </tr>
             <tr>
                 <td class="footer">
-                    {{ $order->variant->course->name }}
+                    {{ $order->course->name }}
                 </td>
             </tr>
         </table>

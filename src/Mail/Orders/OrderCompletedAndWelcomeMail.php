@@ -34,11 +34,11 @@ class OrderCompletedAndWelcomeMail extends Mailable
     public function envelope()
     {
         $address = new Address(
-            eduka_mail_from($this->order->variant->course),
-            eduka_mail_name($this->order->variant->course)
+            eduka_mail_from($this->order->course),
+            eduka_mail_name($this->order->course)
         );
 
-        $subject = sprintf('Thanks for buying %s', $this->order->variant->course->name);
+        $subject = sprintf('Thanks for buying %s', $this->order->course->name);
 
         $this->message = sprintf('# Thanks for buying %s !', $this->order->variant->course->name);
         $this->message .= PHP_EOL;

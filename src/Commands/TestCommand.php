@@ -2,7 +2,6 @@
 
 namespace Eduka\Services\Commands;
 
-use Eduka\Cube\Models\User;
 use Brunocfalcao\Tokenizer\Models\Token;
 use Eduka\Abstracts\Classes\EdukaCommand;
 
