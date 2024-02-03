@@ -56,10 +56,11 @@ class OrderCreatedListener extends EdukaListener
                 ]
             );
 
-            // Send email to user.
+            // Send email to the new user.
             Mail::to($user)->send(new OrderCompletedAndWelcomeMail($user, $order, $url));
-            // Send email notification.
-            //$user->notify(new NewOrderAndWelcomeNotification($user, $order, $url));
+        } else {
+            // Send email to the existing user.
+            Mail::to($user)->send(new OrderCompletedAndThanksForBuyingMail($user, $order));
         }
     }
 }
