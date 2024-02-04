@@ -10,7 +10,6 @@ use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use League\CommonMark\CommonMarkConverter;
 
 class OrderCompletedAndThanksForBuyingMail extends Mailable
 {
@@ -37,24 +36,15 @@ class OrderCompletedAndThanksForBuyingMail extends Mailable
 
         $subject = sprintf('Thanks for buying %s', $this->order->course->name);
 
-        $this->message = sprintf('# Thanks for buying %s !', $this->order->variant->course->name);
-        $this->message .= PHP_EOL;
-        $this->message .= PHP_EOL;
-        $this->message .= 'Hi there,';
-        $this->message .= PHP_EOL;
-        $this->message = 'Thanks for buying one more course!';
-
         return new Envelope(from: $address, subject: $subject);
     }
 
     public function content()
     {
-        $converter = new CommonMarkConverter();
-
         return new Content(
             view: 'eduka-services::mail.new-order-and-welcome',
             with: [
-                'content' => $converter->convertToHtml($this->message),
+                'order' => $this->order,
             ]
         );
     }

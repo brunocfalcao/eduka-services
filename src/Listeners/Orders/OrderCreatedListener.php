@@ -6,7 +6,6 @@ use Eduka\Abstracts\Classes\EdukaListener;
 use Eduka\Cube\Events\Orders\OrderCreatedEvent;
 use Eduka\Cube\Models\User;
 use Eduka\Services\Mail\Orders\OrderCompletedAndWelcomeMail;
-use Eduka\Services\Notifications\Orders\NewOrderAndWelcomeNotification;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
@@ -59,8 +58,9 @@ class OrderCreatedListener extends EdukaListener
             // Send email to the new user.
             Mail::to($user)->send(new OrderCompletedAndWelcomeMail($user, $order, $url));
         } else {
+            throw new \Exception('not here!');
             // Send email to the existing user.
-            Mail::to($user)->send(new OrderCompletedAndThanksForBuyingMail($user, $order));
+            //Mail::to($user)->send(new OrderCompletedAndThanksForBuyingMail($user, $order));
         }
     }
 }
