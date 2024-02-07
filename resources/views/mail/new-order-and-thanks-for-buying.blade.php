@@ -6,7 +6,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="color-scheme" content="light dark" />
         <meta name="supported-color-schemes" content="light dark" />
-        <title></title>
+        <title>{{ $order->course->name }} purchased!</title>
         <style type="text/css" rel="stylesheet" media="all">
             /* Base ------------------------------ */
             @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,700&amp;display=swap");
@@ -418,9 +418,7 @@
                                         <td class="content-cell" style="word-break: break-word; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px; padding: 35px;">
                                             <div class="f-fallback">
                                                 <h1 style="margin-top: 0; color: #333333; font-size: 22px; font-weight: bold; text-align: left;" align="left">Hey there,</h1>
-                                                <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">Thank you for buying my course, {{ $order->course->name }}!</p>
-                                                <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">Cannot wait for you to start watching all the video content, and will be eager to hear from you what do you think about it.</p>
-                                                <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;"><strong>Your next step is to reset your password, so please click the button on the next 24 hours.</strong></p>
+                                                <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">Thank you for buying my course, {{ $order->course->name }}! Cannot wait for you to start watching all the video content, and will be eager to hear from you what do you think about it. <strong>Your next step is to reset your password, so please click the button on the next 24 hours.</strong></p>
                                                 <!-- Action -->
                                                 <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; text-align: center; margin: 30px auto; padding: 0;">
                                                     <tr>
