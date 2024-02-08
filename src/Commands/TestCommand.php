@@ -20,6 +20,6 @@ class TestCommand extends EdukaCommand
     {
         $token = Token::createToken()->token;
 
-        Token::burn($token);
+        Token::burnToken($token);
     }
 }
