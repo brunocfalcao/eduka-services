@@ -4,13 +4,14 @@ namespace Eduka\Services\Listeners\Subscribers;
 
 use Eduka\Abstracts\Classes\EdukaListener;
 use Eduka\Cube\Events\Subscribers\SubscriberCreatedEvent;
-use Eduka\Services\Notifications\Subscribers\SubscriberCreatedNotification;
+use Eduka\Services\Mail\Subscribers\SubscribedToCourseMail;
+use Illuminate\Support\Facades\Mail;
 
 class SubscriberCreatedListener extends EdukaListener
 {
     public function handle(SubscriberCreatedEvent $event)
     {
-        // Send an appreciation notification for the course interest.
-        $event->subscriber->notify(new SubscriberCreatedNotification($event->subscriber));
+        // Send thanks for subscribing email.
+        Mail::to($event->subscriber->email)->send(new SubscribedToCourseMail($event->subscriber));
     }
 }

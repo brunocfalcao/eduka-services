@@ -6,7 +6,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="color-scheme" content="light dark" />
         <meta name="supported-color-schemes" content="light dark" />
-        <title>{{ $order->course->name }} purchased!</title>
+        <title></title>
         <style type="text/css" rel="stylesheet" media="all">
             /* Base ------------------------------ */
             @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,700&amp;display=swap");
@@ -417,8 +417,10 @@
                                     <tr>
                                         <td class="content-cell" style="word-break: break-word; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px; padding: 35px;">
                                             <div class="f-fallback">
-                                                <h1 style="margin-top: 0; color: #333333; font-size: 22px; font-weight: bold; text-align: left;" align="left">Hey there,</h1>
-                                                <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">Thank you for buying my course, {{ $order->course->name }}! Cannot wait for you to start watching all the video content, and will be eager to hear from you what do you think about it. <strong>Your next step is to reset your password, so please click the button on the next 24 hours.</strong></p>
+                                                <h1 style="margin-top: 0; color: #333333; font-size: 22px; font-weight: bold; text-align: left;" align="left">Hey there!</h1>
+                                                <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">Thank you for buying my course, {{ $order->course->name }}!</p>
+                                                <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">I'm thrilled for you to dive into the video content and I'm keen to hear your thoughts on it.</p>
+                                                <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;"><strong><u>Since you already have an account created, you just need to log in on your backend, just click below.</u></strong></p>
                                                 <!-- Action -->
                                                 <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; text-align: center; margin: 30px auto; padding: 0;">
                                                     <tr>
@@ -428,14 +430,14 @@
                                                             <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                                                                 <tr>
                                                                     <td align="center" style="word-break: break-word; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px;">
-                                                                        <a href="{{ $resetLink }}" class="f-fallback button button--green" target="_blank" style="color: #FFF; background-color: #22BC66; display: inline-block; text-decoration: none; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); -webkit-text-size-adjust: none; box-sizing: border-box; border-color: #22BC66; border-style: solid; border-width: 10px 18px;">Reset your password</a>
+                                                                        <a href="{{ $url }}" class="f-fallback button button--green" target="_blank" style="color: #FFF; background-color: #22BC66; display: inline-block; text-decoration: none; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); -webkit-text-size-adjust: none; box-sizing: border-box; border-color: #22BC66; border-style: solid; border-width: 10px 18px;">Access your backend</a>
                                                                     </td>
                                                                 </tr>
                                                             </table>
                                                         </td>
                                                     </tr>
                                                 </table>
-                                                <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">I am always here to help you. So please feel free to reach me if you need, just use this email.</p>
+                                                <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">I'm here to assist you. Should you need any help, feel free to contact me via this email. I pay attention to answer <strong><u>all</u></strong> emails I receive.</p>
                                                 <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">Thank you,
                                                     <br />{{ $order->course->adminUser->name }}
                                                 </p>
@@ -443,7 +445,7 @@
                                                 <table class="body-sub" role="presentation" style="margin-top: 25px; padding-top: 25px; border-top-width: 1px; border-top-color: #EAEAEC; border-top-style: solid;">
                                                     <tr>
                                                         <td style="word-break: break-word; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px;">
-                                                            <p class="f-fallback sub align-center" style="font-size: 13px; line-height: 1.625; color: #6B6E76; margin: .4em 0 1.1875em;">Your email is stored <u><b>encrypted</b></u> on my database, and it will only be used for sending you course-related informations</p>
+                                                            <p class="f-fallback sub align-center" style="font-size: 13px; line-height: 1.625; color: #6B6E76; margin: .4em 0 1.1875em;">Rest assured, your email and any other personal data will <strong>solely</strong> be used to send you course-related information and will never be shared.</p>
                                                         </td>
                                                     </tr>
                                                 </table>

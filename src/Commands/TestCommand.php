@@ -2,8 +2,8 @@
 
 namespace Eduka\Services\Commands;
 
-use Brunocfalcao\Tokenizer\Models\Token;
 use Eduka\Abstracts\Classes\EdukaCommand;
+use Eduka\Cube\Models\Subscriber;
 
 class TestCommand extends EdukaCommand
 {
@@ -18,8 +18,9 @@ class TestCommand extends EdukaCommand
 
     public function handle()
     {
-        $token = Token::createToken()->token;
-
-        Token::burnToken($token);
+        Subscriber::create([
+            'email' => 'bruno.falcao@live.com',
+            'course_id' => 2,
+        ]);
     }
 }

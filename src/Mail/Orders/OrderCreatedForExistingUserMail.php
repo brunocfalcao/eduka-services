@@ -11,7 +11,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class OrderCompletedAndWelcomeMail extends Mailable
+class OrderCreatedForExistingUserMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -21,13 +21,13 @@ class OrderCompletedAndWelcomeMail extends Mailable
 
     public Order $order;
 
-    public string $resetLink;
+    public $url;
 
-    public function __construct(User $user, Order $order, string $resetLink)
+    public function __construct(User $user, Order $order, string $url)
     {
         $this->user = $user;
         $this->order = $order;
-        $this->resetLink = $resetLink;
+        $this->url = $url;
     }
 
     public function envelope()
@@ -45,10 +45,10 @@ class OrderCompletedAndWelcomeMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'eduka-services::mail.new-order-and-welcome',
+            view: 'eduka-services::mail.new-order-for-existing-user',
             with: [
                 'order' => $this->order,
-                'resetLink' => $this->resetLink,
+                'url' => $this->url,
             ]
         );
     }

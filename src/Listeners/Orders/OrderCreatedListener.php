@@ -5,7 +5,8 @@ namespace Eduka\Services\Listeners\Orders;
 use Eduka\Abstracts\Classes\EdukaListener;
 use Eduka\Cube\Events\Orders\OrderCreatedEvent;
 use Eduka\Cube\Models\User;
-use Eduka\Services\Mail\Orders\OrderCompletedAndWelcomeMail;
+use Eduka\Services\Mail\Orders\OrderCreatedForExistingUserMail;
+use Eduka\Services\Mail\Orders\OrderCreatedForNewUserMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
@@ -25,9 +26,20 @@ class OrderCreatedListener extends EdukaListener
         $order = $event->order;
         $email = $order->user_email;
 
-        // Does the email exist? -- If not, create user.
+        /**
+         * The logic of finding a new user needs to be computed using
+         * the organization id. We can have the same email, but different
+         * organization ids (because the platform is multiple organization).
+         */
+        $organization = $event->order->variant->course->organization;
+
+        // Does the email exists within the same organization?
         $user = User::where('email', $email)->firstOrCreate([
-            'email' => $order->user_email,
+            'email' => $email,
+            'organization_id' => $organization->id,
+        ]);
+
+        $user->update([
             'name' => $order->user_name,
             'password' => Str::random(20),
         ]);
@@ -56,11 +68,18 @@ class OrderCreatedListener extends EdukaListener
             );
 
             // Send email to the new user.
-            Mail::to($user)->send(new OrderCompletedAndWelcomeMail($user, $order, $url));
+            Mail::to($user)->send(new OrderCreatedForNewUserMail($user, $order, $url));
         } else {
-            throw new \Exception('not here!');
-            // Send email to the existing user.
-            //Mail::to($user)->send(new OrderCompletedAndThanksForBuyingMail($user, $order));
+            /**
+             * User already exists. We need to send a thank you for buying
+             * email and a link to access the website (backend).
+             */
+
+            // Construct password reset url.
+            $url = 'https://'.$order->course->organization->domain;
+
+            // Send email to the new user.
+            Mail::to($user)->send(new OrderCreatedForExistingUserMail($user, $order, $url));
         }
     }
 }
