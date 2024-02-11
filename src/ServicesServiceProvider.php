@@ -16,6 +16,8 @@ use Eduka\Services\Listeners\Courses\CourseCreatedListener;
 use Eduka\Services\Listeners\Courses\CourseRenamedListener;
 use Eduka\Services\Listeners\Orders\OrderCreatedListener;
 use Eduka\Services\Listeners\Subscribers\SubscriberCreatedListener;
+use Eduka\Services\Listeners\Users\LoggedInListener;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Event;
 
 class ServicesServiceProvider extends EdukaServiceProvider
@@ -84,6 +86,12 @@ class ServicesServiceProvider extends EdukaServiceProvider
                 [CourseRenamedListener::class, 'handle']
             );
         }
+
+        // Universal event to log when a user logs in.
+        Event::listen(
+            Login::class,
+            [LoggedInListener::class, 'handle']
+        );
     }
 
     protected function registerCommands()
