@@ -9,6 +9,7 @@ class LoggedInListener extends EdukaListener
 {
     public function handle(Login $event)
     {
+        $event->user->previous_logged_in_at = $event->user->last_logged_in_at;
         $event->user->last_logged_in_at = now();
         $event->user->save();
     }

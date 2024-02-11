@@ -4,7 +4,6 @@ namespace Eduka\Services\Listeners\Chapters;
 
 use Eduka\Abstracts\Classes\EdukaListener;
 use Eduka\Cube\Events\Chapters\ChapterCreatedEvent;
-use Eduka\Services\Jobs\Vimeo\UpsertFolder;
 use Illuminate\Bus\Batch;
 use Illuminate\Support\Facades\Bus;
 
@@ -27,7 +26,7 @@ class ChapterCreatedListener extends EdukaListener
         }
 
         $batch = Bus::batch([
-            new UpsertFolder(
+            new UpsertFolderJob(
                 $event->chapter,
                 $event->chapter->course->vimeo_uri
             ),

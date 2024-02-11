@@ -9,6 +9,7 @@ use Eduka\Cube\Events\Courses\CourseCreatedEvent;
 use Eduka\Cube\Events\Courses\CourseRenamedEvent;
 use Eduka\Cube\Events\Orders\OrderCreatedEvent;
 use Eduka\Cube\Events\Subscribers\SubscriberCreatedEvent;
+use Eduka\Cube\Events\Variants\VariantSavedEvent;
 use Eduka\Services\Commands\TestCommand;
 use Eduka\Services\Listeners\Chapters\ChapterCreatedListener;
 use Eduka\Services\Listeners\Chapters\ChapterRenamedListener;
@@ -17,6 +18,7 @@ use Eduka\Services\Listeners\Courses\CourseRenamedListener;
 use Eduka\Services\Listeners\Orders\OrderCreatedListener;
 use Eduka\Services\Listeners\Subscribers\SubscriberCreatedListener;
 use Eduka\Services\Listeners\Users\LoggedInListener;
+use Eduka\Services\Listeners\Variants\VariantSavedListener;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Event;
 
@@ -53,6 +55,13 @@ class ServicesServiceProvider extends EdukaServiceProvider
             Event::listen(
                 SubscriberCreatedEvent::class,
                 [SubscriberCreatedListener::class, 'handle']
+            );
+        }
+
+        if (config('eduka.events.observers.variant') === true) {
+            Event::listen(
+                VariantSavedEvent::class,
+                [VariantSavedListener::class, 'handle']
             );
         }
 

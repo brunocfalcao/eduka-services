@@ -1,30 +1,24 @@
 <?php
 
-namespace Eduka\Services\Listeners\Courses;
+namespace Eduka\Services\Listeners\Variants;
 
 use Eduka\Abstracts\Classes\EdukaListener;
-use Eduka\Cube\Events\Courses\CourseCreatedEvent;
+use Eduka\Cube\Events\Variants\VariantSavedEvent;
+use Eduka\Services\Jobs\LemonSqueezy\getVariantJob;
 use Illuminate\Bus\Batch;
 use Illuminate\Support\Facades\Bus;
 use PHPUnit\Event\Code\Throwable;
 
-class CourseCreatedListener extends EdukaListener
+class VariantSavedListener extends EdukaListener
 {
-    public function handle(CourseCreatedEvent $event)
+    public function handle(VariantSavedEvent $event)
     {
-        /**
-         * Batch the following jobs:
-         * 1. Create a new Vimeo top-level folder.
-         * 2. Create a new Backblaze bucket.
-         * 3. Create a new YoutTube playlist.
-         * 4. Send notification to course admin + Nova.
-         */
         $batch = Bus::batch([
-            new UpsertFolderJob($event->course),
+            new getVariantJob($event->variant),
         ])->then(function (Batch $batch) use ($event) {
             // Notify the course admin.
             nova_notify($event->course->adminUser, [
-                'message' => '[ VIMEO ] - Course created ('.$event->course->name.')',
+                'message' => '[ LS ] - Variant info gathered ('.$event->variant->name.')',
                 'icon' => 'academic-cap',
                 'type' => 'info',
             ]);
