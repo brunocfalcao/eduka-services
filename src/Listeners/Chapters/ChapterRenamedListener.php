@@ -4,6 +4,7 @@ namespace Eduka\Services\Listeners\Chapters;
 
 use Eduka\Abstracts\Classes\EdukaListener;
 use Eduka\Cube\Events\Chapters\ChapterRenamedEvent;
+use Eduka\Services\Jobs\Vimeo\UpsertFolderJob;
 use Illuminate\Bus\Batch;
 use Illuminate\Support\Facades\Bus;
 

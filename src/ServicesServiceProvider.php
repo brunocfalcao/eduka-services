@@ -10,6 +10,8 @@ use Eduka\Cube\Events\Courses\CourseRenamedEvent;
 use Eduka\Cube\Events\Orders\OrderCreatedEvent;
 use Eduka\Cube\Events\Subscribers\SubscriberCreatedEvent;
 use Eduka\Cube\Events\Variants\VariantSavedEvent;
+use Eduka\Cube\Events\Videos\VideoRenamedEvent;
+use Eduka\Cube\Events\Videos\VideoUplsertEvent;
 use Eduka\Services\Commands\TestCommand;
 use Eduka\Services\Listeners\Chapters\ChapterCreatedListener;
 use Eduka\Services\Listeners\Chapters\ChapterRenamedListener;
@@ -19,6 +21,7 @@ use Eduka\Services\Listeners\Orders\OrderCreatedListener;
 use Eduka\Services\Listeners\Subscribers\SubscriberCreatedListener;
 use Eduka\Services\Listeners\Users\LoggedInListener;
 use Eduka\Services\Listeners\Variants\VariantSavedListener;
+use Eduka\Services\Listeners\Videos\TempFilenamePathChangedListener;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Event;
 
@@ -51,6 +54,20 @@ class ServicesServiceProvider extends EdukaServiceProvider
          * Events are registered conditionally, meaning we look at the
          * config file to know what events can be registered.
          */
+        if (config('eduka.events.observers.video') === true) {
+            /*
+            Event::listen(
+                VideoRenamedEvent::class,
+                [<...>::class, 'handle']
+            );
+            */
+
+            Event::listen(
+                VideoUplsertEvent::class,
+                [TempFilenamePathChangedListener::class, 'handle']
+            );
+        }
+
         if (config('eduka.events.observers.subscriber') === true) {
             Event::listen(
                 SubscriberCreatedEvent::class,
