@@ -2,16 +2,14 @@
 
 namespace Eduka\Services\Jobs\Vimeo;
 
-use Exception;
+use Brunocfalcao\VimeoClient\Facades\VimeoClient;
 use Eduka\Cube\Models\Video;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Laravel\Nova\Notifications\NovaNotification;
-use Brunocfalcao\VimeoClient\Facades\VimeoClient;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class UploadVideoJob implements ShouldQueue
 {
@@ -30,13 +28,21 @@ class UploadVideoJob implements ShouldQueue
          * Uploads a video to Vimeo, and have as destination the chapter folder
          * or the course root folder (in case there is no video chapter).
          */
-        $data = VimeoClient::uploadVideo(
+        $uri = VimeoClient::uploadVideo(
             storage_path('app/'.$this->video->temp_filename_path),
             $this->video->getVimeoMetadata([
                 'folder_uri' => $this->video->getUploadVimeoFolderURI(),
             ])
         );
 
-        info($data);
+        // Was there a previous video? If so, delete it.
+        if ($this->video->vimeo_uri) {
+            VimeoClient::deleteVideo($this->video->vimeo_uri);
+        }
+
+        // Update the video vimeo uri to the new uri.
+        $this->video->update([
+            'vimeo_uri' => $uri,
+        ]);
     }
 }

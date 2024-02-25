@@ -11,7 +11,7 @@ use Eduka\Cube\Events\Orders\OrderCreatedEvent;
 use Eduka\Cube\Events\Subscribers\SubscriberCreatedEvent;
 use Eduka\Cube\Events\Variants\VariantSavedEvent;
 use Eduka\Cube\Events\Videos\VideoRenamedEvent;
-use Eduka\Cube\Events\Videos\VideoUplsertEvent;
+use Eduka\Cube\Events\Videos\VideoReplacedEvent;
 use Eduka\Services\Commands\TestCommand;
 use Eduka\Services\Listeners\Chapters\ChapterCreatedListener;
 use Eduka\Services\Listeners\Chapters\ChapterRenamedListener;
@@ -21,7 +21,7 @@ use Eduka\Services\Listeners\Orders\OrderCreatedListener;
 use Eduka\Services\Listeners\Subscribers\SubscriberCreatedListener;
 use Eduka\Services\Listeners\Users\LoggedInListener;
 use Eduka\Services\Listeners\Variants\VariantSavedListener;
-use Eduka\Services\Listeners\Videos\TempFilenamePathChangedListener;
+use Eduka\Services\Listeners\Videos\VideoUploadListener;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Event;
 
@@ -63,8 +63,8 @@ class ServicesServiceProvider extends EdukaServiceProvider
             */
 
             Event::listen(
-                VideoUplsertEvent::class,
-                [TempFilenamePathChangedListener::class, 'handle']
+                VideoReplacedEvent::class,
+                [VideoUploadListener::class, 'handle']
             );
         }
 

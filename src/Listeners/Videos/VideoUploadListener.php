@@ -3,7 +3,7 @@
 namespace Eduka\Services\Listeners\Videos;
 
 use Eduka\Abstracts\Classes\EdukaListener;
-use Eduka\Cube\Events\Videos\VideoUplsertEvent;
+use Eduka\Cube\Events\Videos\VideoReplacedEvent;
 use Eduka\Services\Jobs\Vimeo\UploadVideoJob as UploadVideoVimeo;
 use Illuminate\Bus\Batch;
 use Illuminate\Bus\Batchable;
@@ -14,11 +14,11 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Storage;
 
-class TempFilenamePathChangedListener extends EdukaListener
+class VideoUploadListener extends EdukaListener
 {
     use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function handle(VideoUplsertEvent $event)
+    public function handle(VideoReplacedEvent $event)
     {
         $batch = Bus::batch([
             new UploadVideoVimeo($event->video),
@@ -30,7 +30,7 @@ class TempFilenamePathChangedListener extends EdukaListener
 
             // Notify the course admin.
             nova_notify($event->video->course->admin, [
-                'message' => 'Video uploaded to all platforms',
+                'message' => 'Video "'.$event->video->name.'" uploaded to all platforms',
                 'icon' => 'document-duplicate',
                 'type' => 'info',
             ]);
