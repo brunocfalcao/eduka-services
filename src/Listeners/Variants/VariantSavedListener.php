@@ -17,14 +17,14 @@ class VariantSavedListener extends EdukaListener
             new GetVariantJob($event->variant),
         ])->then(function (Batch $batch) use ($event) {
             // Notify the course admin.
-            nova_notify($event->course->adminUser, [
-                'message' => '[ LS ] - Variant info gathered ('.$event->variant->name.')',
+            nova_notify($event->course->admin, [
+                'message' => 'LS variant data gathered ('.$event->variant->name.')',
                 'icon' => 'academic-cap',
                 'type' => 'info',
             ]);
         })->catch(function (Batch $batch, Throwable $e) use ($event) {
             // Notify the course admin.
-            nova_notify($event->course->adminUser, [
+            nova_notify($event->course->admin, [
                 'message' => $e->message(),
                 'icon' => 'exclamation-circle',
                 'type' => 'error',

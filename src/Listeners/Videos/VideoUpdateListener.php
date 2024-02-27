@@ -4,7 +4,7 @@ namespace Eduka\Services\Listeners\Videos;
 
 use Eduka\Abstracts\Classes\EdukaListener;
 use Eduka\Cube\Events\Videos\VideoReplacedEvent;
-use Eduka\Services\Jobs\Vimeo\UploadVideoJob as UploadVideoVimeo;
+use Eduka\Services\Jobs\Vimeo\UpdateVideoJob;
 use Illuminate\Bus\Batch;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
@@ -12,24 +12,19 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Bus;
-use Illuminate\Support\Facades\Storage;
 
-class VideoUploadListener extends EdukaListener
+class VideoUpdateListener extends EdukaListener
 {
     use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public function handle(VideoReplacedEvent $event)
     {
         $batch = Bus::batch([
-            // Upload video to Vimeo.
-            new UploadVideoVimeo($event->video),
+            new UpdateVideoJob($event->video),
         ])->then(function (Batch $batch) use ($event) {
-            // Delete physical file. No longer needed. No job needed.
-            Storage::delete($event->video->temp_filename_path);
-
             // Notify the course admin.
             nova_notify($event->video->course->admin, [
-                'message' => 'Video "'.$event->video->name.'" uploaded to Vimeo',
+                'message' => 'Video "'.$event->video->name.'" metadata updated',
                 'icon' => 'document-duplicate',
                 'type' => 'info',
             ]);

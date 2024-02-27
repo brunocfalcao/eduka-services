@@ -24,14 +24,14 @@ class CourseCreatedListener extends EdukaListener
             new UpsertFolderJob($event->course),
         ])->then(function (Batch $batch) use ($event) {
             // Notify the course admin.
-            nova_notify($event->course->adminUser, [
-                'message' => '[ VIMEO ] - Course created ('.$event->course->name.')',
+            nova_notify($event->course->admin, [
+                'message' => 'Vimeo course folder created ('.$event->course->name.')',
                 'icon' => 'academic-cap',
                 'type' => 'info',
             ]);
         })->catch(function (Batch $batch, Throwable $e) use ($event) {
             // Notify the course admin.
-            nova_notify($event->course->adminUser, [
+            nova_notify($event->course->admin, [
                 'message' => $e->message(),
                 'icon' => 'exclamation-circle',
                 'type' => 'error',

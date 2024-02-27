@@ -30,7 +30,7 @@ class UploadVideoJob implements ShouldQueue
          */
         $uri = VimeoClient::uploadVideo(
             storage_path('app/'.$this->video->temp_filename_path),
-            $this->video->getVimeoMetadata([
+            $this->video->getVimeoVideoUploadDefaultMetadata([
                 'folder_uri' => $this->video->getUploadVimeoFolderURI(),
             ])
         );

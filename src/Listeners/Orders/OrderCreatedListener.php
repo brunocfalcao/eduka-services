@@ -81,5 +81,11 @@ class OrderCreatedListener extends EdukaListener
             // Send email to the new user.
             Mail::to($user)->send(new OrderCreatedForExistingUserMail($user, $order, $url));
         }
+
+        nova_notify($order->course->admin, [
+            'message' => 'Order completed ('.$user->email.')',
+            'icon' => 'currency-dollar',
+            'type' => 'info',
+        ]);
     }
 }

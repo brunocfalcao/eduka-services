@@ -17,8 +17,8 @@ class CourseRenamedListener extends EdukaListener
             new UpsertFolderJob($event->course, null, $event->course->vimeo_folder_id),
         ])->then(function (Batch $batch) use ($event) {
             // Notify the course admin.
-            nova_notify($event->course->adminUser, [
-                'message' => '[ VIMEO ] - Course renamed ('.$event->course->name.')',
+            nova_notify($event->course->admin, [
+                'message' => 'Vimeo course folder renamed ('.$event->course->name.')',
                 'icon' => 'academic-cap',
                 'type' => 'info',
             ]);
