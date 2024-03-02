@@ -439,7 +439,7 @@
                                                 </table>
                                                 <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">I'm here to assist you. Should you need any help, feel free to contact me via this email. I pay attention to answer <strong><u>all</u></strong> emails I receive.</p>
                                                 <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">Thank you,
-                                                    <br />{{ $order->course->adminUser->name }}
+                                                    <br />{{ $order->course->admin->name }}
                                                 </p>
                                                 <!-- Sub copy -->
                                                 <table class="body-sub" role="presentation" style="margin-top: 25px; padding-top: 25px; border-top-width: 1px; border-top-color: #EAEAEC; border-top-style: solid;">

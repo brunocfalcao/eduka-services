@@ -4,6 +4,7 @@ namespace Eduka\Services;
 
 use Eduka\Abstracts\Classes\EdukaServiceProvider;
 use Eduka\Cube\Events\Chapters\ChapterCreatedEvent;
+use Eduka\Cube\Events\Chapters\ChapterDeletedEvent;
 use Eduka\Cube\Events\Chapters\ChapterRenamedEvent;
 use Eduka\Cube\Events\Courses\CourseCreatedEvent;
 use Eduka\Cube\Events\Courses\CourseRenamedEvent;
@@ -14,6 +15,7 @@ use Eduka\Cube\Events\Videos\VideoRenamedEvent;
 use Eduka\Cube\Events\Videos\VideoReplacedEvent;
 use Eduka\Services\Commands\TestCommand;
 use Eduka\Services\Listeners\Chapters\ChapterCreatedListener;
+use Eduka\Services\Listeners\Chapters\ChapterDeletedListener;
 use Eduka\Services\Listeners\Chapters\ChapterRenamedListener;
 use Eduka\Services\Listeners\Courses\CourseCreatedListener;
 use Eduka\Services\Listeners\Courses\CourseRenamedListener;
@@ -98,6 +100,11 @@ class ServicesServiceProvider extends EdukaServiceProvider
             Event::listen(
                 ChapterRenamedEvent::class,
                 [ChapterRenamedListener::class, 'handle']
+            );
+
+            Event::listen(
+                ChapterDeletedEvent::class,
+                [ChapterDeletedListener::class, 'handle']
             );
         }
 

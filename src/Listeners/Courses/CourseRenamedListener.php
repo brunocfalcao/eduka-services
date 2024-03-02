@@ -24,7 +24,7 @@ class CourseRenamedListener extends EdukaListener
             ]);
         })->catch(function (Batch $batch, Throwable $e) use ($event) {
             // Notify the course admin.
-            nova_notify($event->course->adminUser, [
+            nova_notify($event->course->admin, [
                 'message' => $e->message(),
                 'icon' => 'exclamation-circle',
                 'type' => 'error',
