@@ -3,7 +3,6 @@
 namespace Eduka\Services\Jobs\Vimeo;
 
 use Brunocfalcao\VimeoClient\Facades\VimeoClient;
-use Eduka\Cube\Models\Video;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,22 +10,21 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class UpdateVideoJob implements ShouldQueue
+class DeleteVideoJob implements ShouldQueue
 {
     use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $video;
+    public $vimeoURI;
 
-    public function __construct(Video $video)
+    public function __construct(string $vimeoURI)
     {
-        $this->video = $video;
+        $this->vimeoURI = $vimeoURI;
     }
 
-    public function handle(): void
+    public function handle()
     {
-        VimeoClient::updateVideoDetails(
-            $this->video->vimeo_uri,
-            $this->video->getVimeoVideoDefaultMetadata()
+        VimeoClient::deleteVideo(
+            $this->vimeoURI
         );
     }
 }

@@ -13,5 +13,11 @@ class SubscriberCreatedListener extends EdukaListener
     {
         // Send thanks for subscribing email.
         Mail::to($event->subscriber->email)->send(new SubscribedToCourseMail($event->subscriber));
+
+        nova_notify($event->subscriber->course->admin, [
+            'message' => 'New subscriber ('.$event->subscriber->email.')!',
+            'icon' => 'face-smile',
+            'type' => 'info',
+        ]);
     }
 }

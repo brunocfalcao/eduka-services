@@ -26,7 +26,7 @@ class CourseCreatedListener extends EdukaListener
             // Notify the course admin.
             nova_notify($event->course->admin, [
                 'message' => 'Vimeo course folder created ('.$event->course->name.')',
-                'icon' => 'academic-cap',
+                'icon' => 'folder-plus',
                 'type' => 'info',
             ]);
         })->catch(function (Batch $batch, Throwable $e) use ($event) {

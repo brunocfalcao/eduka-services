@@ -19,7 +19,7 @@ class CourseRenamedListener extends EdukaListener
             // Notify the course admin.
             nova_notify($event->course->admin, [
                 'message' => 'Vimeo course folder renamed ('.$event->course->name.')',
-                'icon' => 'academic-cap',
+                'icon' => 'folder',
                 'type' => 'info',
             ]);
         })->catch(function (Batch $batch, Throwable $e) use ($event) {

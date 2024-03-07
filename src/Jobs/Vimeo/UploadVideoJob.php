@@ -30,14 +30,14 @@ class UploadVideoJob implements ShouldQueue
          */
         $uri = VimeoClient::uploadVideo(
             storage_path('app/'.$this->video->temp_filename_path),
-            $this->video->getVimeoVideoUploadDefaultMetadata([
+            $this->video->getVimeoVideoDefaultMetadata([
                 'folder_uri' => $this->video->getUploadVimeoFolderURI(),
             ])
         );
 
-        // Was there a previous video? If so, delete it.
+        // Was there a previous video? If so, delete it. Dispatch asynch.
         if ($this->video->vimeo_uri) {
-            VimeoClient::deleteVideo($this->video->vimeo_uri);
+            DeleteVideoJob::dispatch($this->video->vimeo_uri);
         }
 
         // Update the video vimeo uri to the new uri.

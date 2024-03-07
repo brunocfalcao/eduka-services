@@ -35,7 +35,7 @@ class ChapterCreatedListener extends EdukaListener
             // Notify the course chapter admin.
             nova_notify($event->chapter->course->admin, [
                 'message' => 'Vimeo chapter folder created ('.$event->chapter->name.')',
-                'icon' => 'document-duplicate',
+                'icon' => 'folder-plus',
                 'type' => 'info',
             ]);
         })->catch(function (Batch $batch, Throwable $e) use ($event) {

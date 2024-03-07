@@ -30,7 +30,7 @@ class VideoUploadListener extends EdukaListener
             // Notify the course admin.
             nova_notify($event->video->course->admin, [
                 'message' => 'Video "'.$event->video->name.'" uploaded to Vimeo',
-                'icon' => 'document-duplicate',
+                'icon' => 'video-camera',
                 'type' => 'info',
             ]);
         })->catch(function (Batch $batch, Throwable $e) use ($event) {

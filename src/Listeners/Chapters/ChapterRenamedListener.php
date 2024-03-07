@@ -22,7 +22,7 @@ class ChapterRenamedListener extends EdukaListener
             // Notify the course chapter admin.
             nova_notify($event->chapter->course->admin, [
                 'message' => 'Vimeo chapter folder renamed ('.$event->chapter->name.')',
-                'icon' => 'document-duplicate',
+                'icon' => 'folder',
                 'type' => 'info',
             ]);
         })->catch(function (Batch $batch, Throwable $e) use ($event) {

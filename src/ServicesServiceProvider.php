@@ -11,8 +11,11 @@ use Eduka\Cube\Events\Courses\CourseRenamedEvent;
 use Eduka\Cube\Events\Orders\OrderCreatedEvent;
 use Eduka\Cube\Events\Subscribers\SubscriberCreatedEvent;
 use Eduka\Cube\Events\Variants\VariantSavedEvent;
+use Eduka\Cube\Events\Videos\VideoChapterUpdatedEvent;
+use Eduka\Cube\Events\Videos\VideoDeletedEvent;
 use Eduka\Cube\Events\Videos\VideoRenamedEvent;
 use Eduka\Cube\Events\Videos\VideoReplacedEvent;
+use Eduka\Cube\Events\Videos\VideoUpdatedEvent;
 use Eduka\Services\Commands\TestCommand;
 use Eduka\Services\Listeners\Chapters\ChapterCreatedListener;
 use Eduka\Services\Listeners\Chapters\ChapterDeletedListener;
@@ -23,6 +26,9 @@ use Eduka\Services\Listeners\Orders\OrderCreatedListener;
 use Eduka\Services\Listeners\Subscribers\SubscriberCreatedListener;
 use Eduka\Services\Listeners\Users\LoggedInListener;
 use Eduka\Services\Listeners\Variants\VariantSavedListener;
+use Eduka\Services\Listeners\Videos\VideoChapterUpdateListerner;
+use Eduka\Services\Listeners\Videos\VideoDeleteListener;
+use Eduka\Services\Listeners\Videos\VideoUpdateListener;
 use Eduka\Services\Listeners\Videos\VideoUploadListener;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Event;
@@ -63,6 +69,21 @@ class ServicesServiceProvider extends EdukaServiceProvider
                 [<...>::class, 'handle']
             );
             */
+
+            Event::listen(
+                VideoChapterUpdatedEvent::class,
+                [VideoChapterUpdateListerner::class, 'handle']
+            );
+
+            Event::listen(
+                VideoDeletedEvent::class,
+                [VideoDeleteListener::class, 'handle']
+            );
+
+            Event::listen(
+                VideoUpdatedEvent::class,
+                [VideoUpdateListener::class, 'handle']
+            );
 
             Event::listen(
                 VideoReplacedEvent::class,
