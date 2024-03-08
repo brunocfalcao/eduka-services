@@ -7,17 +7,10 @@ use Eduka\Cube\Events\Videos\VideoChapterUpdatedEvent;
 use Eduka\Cube\Models\Chapter;
 use Eduka\Services\Jobs\Vimeo\DeleteVideoFromFolderJob;
 use Illuminate\Bus\Batch;
-use Illuminate\Bus\Batchable;
-use Illuminate\Bus\Queueable;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Bus;
 
 class VideoChapterUpdateListerner extends EdukaListener
 {
-    use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     public function handle(VideoChapterUpdatedEvent $event)
     {
         /**

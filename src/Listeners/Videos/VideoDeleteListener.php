@@ -6,17 +6,10 @@ use Eduka\Abstracts\Classes\EdukaListener;
 use Eduka\Cube\Events\Videos\VideoDeletedEvent;
 use Eduka\Services\Jobs\Vimeo\DeleteVideoJob;
 use Illuminate\Bus\Batch;
-use Illuminate\Bus\Batchable;
-use Illuminate\Bus\Queueable;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Bus;
 
 class VideoDeleteListener extends EdukaListener
 {
-    use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     public function handle(VideoDeletedEvent $event)
     {
         $admin = $event->payload['admin'];

@@ -6,18 +6,11 @@ use Eduka\Abstracts\Classes\EdukaListener;
 use Eduka\Cube\Events\Videos\VideoReplacedEvent;
 use Eduka\Services\Jobs\Vimeo\UploadVideoJob as UploadVideoVimeo;
 use Illuminate\Bus\Batch;
-use Illuminate\Bus\Batchable;
-use Illuminate\Bus\Queueable;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Storage;
 
 class VideoUploadListener extends EdukaListener
 {
-    use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     public function handle(VideoReplacedEvent $event)
     {
         $batch = Bus::batch([

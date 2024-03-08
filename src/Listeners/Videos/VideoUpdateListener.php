@@ -6,17 +6,10 @@ use Eduka\Abstracts\Classes\EdukaListener;
 use Eduka\Cube\Events\Videos\VideoUpdatedEvent;
 use Eduka\Services\Jobs\Vimeo\UpdateVideoJob;
 use Illuminate\Bus\Batch;
-use Illuminate\Bus\Batchable;
-use Illuminate\Bus\Queueable;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Bus;
 
 class VideoUpdateListener extends EdukaListener
 {
-    use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     public function handle(VideoUpdatedEvent $event)
     {
         $batch = Bus::batch([

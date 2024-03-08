@@ -26,7 +26,6 @@ class DeleteVideoFromFolderJob implements ShouldQueue
 
     public function handle()
     {
-
         dd('here');
 
         // Grab the vimeo_folder_id for the change.
