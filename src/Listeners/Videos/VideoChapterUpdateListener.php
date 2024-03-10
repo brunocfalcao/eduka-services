@@ -5,36 +5,59 @@ namespace Eduka\Services\Listeners\Videos;
 use Eduka\Abstracts\Classes\EdukaListener;
 use Eduka\Cube\Events\Videos\VideoChapterUpdatedEvent;
 use Eduka\Cube\Models\Chapter;
+use Eduka\Services\Jobs\Vimeo\AddVideoToFolderJob;
 use Eduka\Services\Jobs\Vimeo\DeleteVideoFromFolderJob;
 use Illuminate\Bus\Batch;
 use Illuminate\Support\Facades\Bus;
 
-class VideoChapterUpdateListerner extends EdukaListener
+class VideoChapterUpdateListener extends EdukaListener
 {
     public function handle(VideoChapterUpdatedEvent $event)
     {
-        /**
-         * We always remove the video from the current chapter folder (in case it's not null).
-         * We just add the video to the new chapter folder in case it's not null.
-         */
-        $previousChapterModel = $event->previousChapterId ??
-                                Chapter::find($event->previousChapterId);
+        $originalChapter = $event->video->getOriginal('chapter_id') ?
+                           Chapter::find($event->video->getOriginal('chapter_id')) :
+                           null;
 
         $jobs = [];
 
-        if ($previousChapterModel) {
-            // 2 models passed to the job: The Previous Chapter, and the current video.
-            $jobs[] = new DeleteVideoFromFolderJob($event->previousChapterModel->vimeo_uri, $event->video->vimeo_uri);
+        if ($originalChapter) {
+            // Delete video from previous chapter.
+            $jobs[] = new DeleteVideoFromFolderJob(
+                $originalChapter->vimeo_uri,
+                $event->video->vimeo_uri
+            );
         }
 
+        $videoAdded = false;
+
+        // New video chapter? Add it there.
+        if ($event->video->chapter_id) {
+            $videoAdded = true;
+
+            $jobs[] = new AddVideoToFolderJob(
+                $event->video->chapter->vimeo_uri,
+                $event->video->vimeo_uri
+            );
+        }
+
+        $admin = $event->video->course->admin;
+        $videoName = $event->video->name;
+
         $batch = Bus::batch($jobs)
-            ->then(function (Batch $batch) use ($admin, $videoName) {
+            ->then(function (Batch $batch) use ($admin, $videoName, $videoAdded) {
                 // Notify the course admin.
                 nova_notify($admin, [
-                    'message' => 'Video "'.$videoName.'" deleted',
+                    'message' => 'Video "'.$videoName.'" deleted from folder',
                     'icon' => 'video-camera',
                     'type' => 'info',
                 ]);
+                if ($videoAdded) {
+                    nova_notify($admin, [
+                        'message' => 'Video "'.$videoName.'" added to new folder',
+                        'icon' => 'video-camera',
+                        'type' => 'info',
+                    ]);
+                }
             })->catch(function (Batch $batch, Throwable $e) use ($admin) {
                 // Notify the course admin.
                 nova_notify($admin, [

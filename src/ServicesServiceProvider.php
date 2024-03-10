@@ -26,7 +26,7 @@ use Eduka\Services\Listeners\Orders\OrderCreatedListener;
 use Eduka\Services\Listeners\Subscribers\SubscriberCreatedListener;
 use Eduka\Services\Listeners\Users\LoggedInListener;
 use Eduka\Services\Listeners\Variants\VariantSavedListener;
-use Eduka\Services\Listeners\Videos\VideoChapterUpdateListerner;
+use Eduka\Services\Listeners\Videos\VideoChapterUpdateListener;
 use Eduka\Services\Listeners\Videos\VideoDeleteListener;
 use Eduka\Services\Listeners\Videos\VideoUpdateListener;
 use Eduka\Services\Listeners\Videos\VideoUploadListener;
@@ -72,7 +72,7 @@ class ServicesServiceProvider extends EdukaServiceProvider
 
             Event::listen(
                 VideoChapterUpdatedEvent::class,
-                [VideoChapterUpdateListerner::class, 'handle']
+                [VideoChapterUpdateListener::class, 'handle']
             );
 
             Event::listen(

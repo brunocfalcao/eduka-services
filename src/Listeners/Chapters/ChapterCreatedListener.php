@@ -12,11 +12,6 @@ class ChapterCreatedListener extends EdukaListener
 {
     public function handle(ChapterCreatedEvent $event)
     {
-        /**
-         * Batch the following jobs:
-         * 1. Create Vimeo chapter folder name.
-         * 4. Send notification to course admin + Nova.
-         */
         $event->chapter->refresh();
 
         // Concurrency seeder check: course.vimeo_uri should be filled.

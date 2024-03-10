@@ -12,9 +12,9 @@ class ChapterDeletedListener extends EdukaListener
 {
     public function handle(ChapterDeletedEvent $event)
     {
-        $admin = $event->payload['admin'];
-        $chapterName = $event->payload['name'];
-        $vimeoFolderId = $event->payload['vimeo_folder_id'];
+        $admin = $event->chapter->course->admin;
+        $chapterName = $event->chapter->name;
+        $vimeoFolderId = $event->chapter->vimeo_folder_id;
 
         $batch = Bus::batch([
             new DeleteFolderJob($vimeoFolderId),

@@ -10,7 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class DeleteVideoFromFolderJob implements ShouldQueue
+class AddVideoToFolderJob implements ShouldQueue
 {
     use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -18,7 +18,7 @@ class DeleteVideoFromFolderJob implements ShouldQueue
 
     public $videoURI;
 
-    public function __construct(?string $chapterURI, ?string $videoURI)
+    public function __construct(string $chapterURI, string $videoURI)
     {
         $this->chapterURI = $chapterURI;
         $this->videoURI = $videoURI;
@@ -27,7 +27,7 @@ class DeleteVideoFromFolderJob implements ShouldQueue
     public function handle()
     {
         // Grab the vimeo_folder_id for the change.
-        $data = VimeoClient::deleteVideoFromFolder(
+        $data = VimeoClient::addVideoToFolder(
             // The chapter vimeo_uri.
             $this->chapterURI,
             // The video vimeo_uri.

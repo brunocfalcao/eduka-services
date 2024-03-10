@@ -22,6 +22,7 @@ class UpsertFolderJob implements ShouldQueue
 
     public function __construct($model, $parentUri = null, $folderId = null)
     {
+        // This model can be different types (Chapters or Courses, etc).
         $this->model = $model;
         $this->parentUri = $parentUri;
         $this->folderId = $folderId;
