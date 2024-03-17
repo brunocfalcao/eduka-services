@@ -18,8 +18,8 @@ class VideoUpdateListener extends EdukaListener
             // Notify the course admin.
             nova_notify($event->video->course->admin, [
                 'message' => 'Video "'.$event->video->name.'" metadata updated',
-                'icon' => 'video-camera',
-                'type' => 'info',
+                'icon' => 'dots-circle-horizontal',
+                'type' => 'success',
             ]);
         })->catch(function (Batch $batch, Throwable $e) use ($event) {
             // Notify the course admin.

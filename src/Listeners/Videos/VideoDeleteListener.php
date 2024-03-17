@@ -22,8 +22,8 @@ class VideoDeleteListener extends EdukaListener
             // Notify the course admin.
             nova_notify($admin, [
                 'message' => 'Video "'.$videoName.'" deleted',
-                'icon' => 'video-camera',
-                'type' => 'info',
+                'icon' => 'minus-circle',
+                'type' => 'success',
             ]);
         })->catch(function (Batch $batch, Throwable $e) use ($admin) {
             // Notify the course admin.

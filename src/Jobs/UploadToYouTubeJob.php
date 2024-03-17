@@ -2,7 +2,6 @@
 
 namespace Eduka\Services\Jobs;
 
-use Eduka\Cube\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -18,13 +17,13 @@ class UploadToYouTubeJob implements ShouldQueue
 
     public $courseId;
 
-    public $userId;
+    public $studentId;
 
-    public function __construct(int $videoId, int $courseId, int $userId)
+    public function __construct(int $videoId, int $courseId, int $studentId)
     {
         $this->videoId = $videoId;
         $this->courseId = $courseId;
-        $this->userId = $userId;
+        $this->studentId = $studentId;
     }
 
     public function handle(): void
@@ -33,7 +32,7 @@ class UploadToYouTubeJob implements ShouldQueue
             //
         } catch (Exception $e) {
             $message = 'Upload to YouTube error: '.$e->getMessage().' on file '.$e->getFile().' on line '.$e->getLine();
-            User::firstWhere('id', $this->userId)->notify(
+            User::firstWhere('id', $this->studentId)->notify(
                 NovaNotification::make()
                     ->message($message)
                     ->icon('download')

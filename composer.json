@@ -17,7 +17,7 @@
     "require": {
         "php": "^8.2",
         "aws/aws-sdk-php": "^3.286",
-        "illuminate/contracts": "^10.0",
+        "illuminate/contracts": "^10.0||^11.0",
         "brunocfalcao/eduka-cube": "dev-master",
         "brunocfalcao/eduka-abstracts": "dev-master",
         "brunocfalcao/laravel-zepto-mail-api-driver": "dev-master",

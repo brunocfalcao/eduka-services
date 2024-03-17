@@ -48,8 +48,8 @@ class VideoChapterUpdateListener extends EdukaListener
                 // Notify the course admin.
                 nova_notify($admin, [
                     'message' => 'Video "'.$videoName.'" deleted from folder',
-                    'icon' => 'video-camera',
-                    'type' => 'info',
+                    'icon' => 'dots-circle-horizontal',
+                    'type' => 'success',
                 ]);
                 if ($videoAdded) {
                     nova_notify($admin, [

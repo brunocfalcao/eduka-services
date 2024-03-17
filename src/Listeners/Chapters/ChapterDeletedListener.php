@@ -22,8 +22,8 @@ class ChapterDeletedListener extends EdukaListener
             // Notify the course chapter admin.
             nova_notify($admin, [
                 'message' => 'Vimeo chapter folder deleted ('.$chapterName.')',
-                'icon' => 'folder-minus',
-                'type' => 'info',
+                'icon' => 'folder-remove',
+                'type' => 'success',
             ]);
         })->catch(function (Batch $batch, Throwable $e) use ($admin) {
             info('[ Listener ] - Job went on error - '.$e->message());

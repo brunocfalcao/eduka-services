@@ -19,8 +19,8 @@ class VariantSavedListener extends EdukaListener
             // Notify the course admin.
             nova_notify($event->variant->course->admin, [
                 'message' => 'LS variant data gathered ('.$event->variant->name.')',
-                'icon' => 'academic-cap',
-                'type' => 'info',
+                'icon' => 'dots-circle-horizontal',
+                'type' => 'success',
             ]);
         })->catch(function (Batch $batch, Throwable $e) use ($event) {
             // Notify the course admin.

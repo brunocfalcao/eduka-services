@@ -16,8 +16,8 @@ class SubscriberCreatedListener extends EdukaListener
 
         nova_notify($event->subscriber->course->admin, [
             'message' => 'New subscriber ('.$event->subscriber->email.')!',
-            'icon' => 'face-smile',
-            'type' => 'info',
+            'icon' => 'plus-circle',
+            'type' => 'success',
         ]);
     }
 }
