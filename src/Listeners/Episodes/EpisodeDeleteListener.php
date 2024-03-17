@@ -1,27 +1,27 @@
 <?php
 
-namespace Eduka\Services\Listeners\Videos;
+namespace Eduka\Services\Listeners\Episodes;
 
 use Eduka\Abstracts\Classes\EdukaListener;
-use Eduka\Cube\Events\Videos\VideoDeletedEvent;
-use Eduka\Services\Jobs\Vimeo\DeleteVideoJob;
+use Eduka\Cube\Events\Episodes\EpisodeDeletedEvent;
+use Eduka\Services\Jobs\Vimeo\DeleteEpisodeJob;
 use Illuminate\Bus\Batch;
 use Illuminate\Support\Facades\Bus;
 
-class VideoDeleteListener extends EdukaListener
+class EpisodeDeleteListener extends EdukaListener
 {
-    public function handle(VideoDeletedEvent $event)
+    public function handle(EpisodeDeletedEvent $event)
     {
         $admin = $event->payload['admin'];
-        $videoName = $event->payload['name'];
-        $vimeoVideoURI = $event->payload['vimeo_uri'];
+        $episodeName = $event->payload['name'];
+        $vimeoEpisodeURI = $event->payload['vimeo_uri'];
 
         $batch = Bus::batch([
-            new DeleteVideoJob($event->payload['vimeo_uri']),
-        ])->then(function (Batch $batch) use ($admin, $videoName) {
+            new DeleteEpisodeJob($event->payload['vimeo_uri']),
+        ])->then(function (Batch $batch) use ($admin, $episodeName) {
             // Notify the course admin.
             nova_notify($admin, [
-                'message' => 'Video "'.$videoName.'" deleted',
+                'message' => 'Episode "'.$episodeName.'" deleted',
                 'icon' => 'minus-circle',
                 'type' => 'success',
             ]);

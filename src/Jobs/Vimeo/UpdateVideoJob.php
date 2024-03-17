@@ -3,7 +3,7 @@
 namespace Eduka\Services\Jobs\Vimeo;
 
 use Brunocfalcao\VimeoClient\Facades\VimeoClient;
-use Eduka\Cube\Models\Video;
+use Eduka\Cube\Models\Episode;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -17,7 +17,7 @@ class UpdateVideoJob implements ShouldQueue
 
     public $video;
 
-    public function __construct(Video $video)
+    public function __construct(Episode $video)
     {
         $this->video = $video;
     }
@@ -26,7 +26,7 @@ class UpdateVideoJob implements ShouldQueue
     {
         VimeoClient::updateVideoDetails(
             $this->video->vimeo_uri,
-            $this->video->getVimeoVideoDefaultMetadata()
+            $this->video->getVimeoVideoefaultMetadata()
         );
     }
 }

@@ -419,7 +419,7 @@
                                             <div class="f-fallback">
                                                 <h1 style="margin-top: 0; color: #333333; font-size: 22px; font-weight: bold; text-align: left;" align="left">Hey there!</h1>
                                                 <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">Thank you for buying my course, {{ $order->course->name }}!</p>
-                                                <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">I'm thrilled for you to dive into the video content and I'm keen to hear your thoughts on it.</p>
+                                                <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">I'm thrilled for you to dive into the episode content and I'm keen to hear your thoughts on it.</p>
                                                 <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;"><strong><u>Your next step is to reset your password, so please click the button on the next 24 hours.</u></strong></p>
                                                 <!-- Action -->
                                                 <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; text-align: center; margin: 30px auto; padding: 0;">

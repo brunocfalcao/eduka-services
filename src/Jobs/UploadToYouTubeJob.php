@@ -13,15 +13,15 @@ class UploadToYouTubeJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $videoId;
+    public $episodeId;
 
     public $courseId;
 
     public $studentId;
 
-    public function __construct(int $videoId, int $courseId, int $studentId)
+    public function __construct(int $episodeId, int $courseId, int $studentId)
     {
-        $this->videoId = $videoId;
+        $this->episodeId = $episodeId;
         $this->courseId = $courseId;
         $this->studentId = $studentId;
     }

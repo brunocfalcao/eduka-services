@@ -3,7 +3,7 @@
 namespace Eduka\Services\Commands;
 
 use Eduka\Abstracts\Classes\EdukaCommand;
-use Eduka\Cube\Models\Video;
+use Eduka\Cube\Models\Episode;
 use Illuminate\Support\Str;
 
 class TestCommand extends EdukaCommand
@@ -20,11 +20,11 @@ class TestCommand extends EdukaCommand
     public function handle()
     {
 
-        $video = Video::whereNotNull('vimeo_uri')->first();
+        $episode = Episode::whereNotNull('vimeo_uri')->first();
 
-        $video->name = 'Roger that '.Str::Random(10);
+        $episode->name = 'Roger that '.Str::Random(10);
 
-        $video->save();
+        $episode->save();
 
         $this->info('All good.');
     }
