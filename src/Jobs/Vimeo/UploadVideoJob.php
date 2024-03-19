@@ -11,7 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class UploadEpisodeJob implements ShouldQueue
+class UploadVideoJob implements ShouldQueue
 {
     use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -28,16 +28,16 @@ class UploadEpisodeJob implements ShouldQueue
          * Uploads a video to Vimeo, and have as destination the chapter folder
          * or the course root folder (in case there is no video chapter).
          */
-        $uri = VimeoClient::uploadEpisode(
+        $uri = VimeoClient::uploadVideo(
             storage_path('app/'.$this->video->temp_filename_path),
-            $this->video->getVimeoEpisodeDefaultMetadata([
+            $this->video->getVimeoVideoDefaultMetadata([
                 'folder_uri' => $this->video->getUploadVimeoFolderURI(),
             ])
         );
 
         // Was there a previous video? If so, delete it. Dispatch asynch.
         if ($this->video->vimeo_uri) {
-            DeleteEpisodeJob::dispatch($this->video->vimeo_uri);
+            DeleteVideoJob::dispatch($this->video->vimeo_uri);
         }
 
         // Update the video vimeo uri to the new uri.
