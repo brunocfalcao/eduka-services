@@ -23,7 +23,7 @@ class EpisodeDeleteListener extends EdukaListener
             nova_notify($admin, [
                 'message' => 'Episode "'.$episodeName.'" deleted',
                 'icon' => 'minus-circle',
-                'type' => 'success',
+                'type' => 'warning',
             ]);
         })->catch(function (Batch $batch, Throwable $e) use ($admin) {
             // Notify the course admin.

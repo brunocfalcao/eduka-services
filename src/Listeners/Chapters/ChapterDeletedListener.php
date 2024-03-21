@@ -26,7 +26,6 @@ class ChapterDeletedListener extends EdukaListener
                 'type' => 'success',
             ]);
         })->catch(function (Batch $batch, Throwable $e) use ($admin) {
-            info('[ Listener ] - Job went on error - '.$e->message());
             // Notify the course chapter admin.
             nova_notify($admin, [
                 'message' => $e->message(),
