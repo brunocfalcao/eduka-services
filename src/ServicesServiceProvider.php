@@ -2,38 +2,38 @@
 
 namespace Eduka\Services;
 
-use Illuminate\Auth\Events\Login;
-use Illuminate\Support\Facades\Event;
-use Eduka\Services\Commands\TestCommand;
-use Eduka\Cube\Events\Orders\OrderCreatedEvent;
 use Eduka\Abstracts\Classes\EdukaServiceProvider;
-use Eduka\Cube\Events\Courses\CourseCreatedEvent;
-use Eduka\Cube\Events\Courses\CourseDeletedEvent;
-use Eduka\Cube\Events\Courses\CourseRenamedEvent;
-use Eduka\Cube\Events\Variants\VariantSavedEvent;
 use Eduka\Cube\Events\Chapters\ChapterCreatedEvent;
 use Eduka\Cube\Events\Chapters\ChapterDeletedEvent;
 use Eduka\Cube\Events\Chapters\ChapterRenamedEvent;
+use Eduka\Cube\Events\Courses\CourseCreatedEvent;
+use Eduka\Cube\Events\Courses\CourseDeletedEvent;
+use Eduka\Cube\Events\Courses\CourseRenamedEvent;
+use Eduka\Cube\Events\Episodes\EpisodeChapterUpdatedEvent;
 use Eduka\Cube\Events\Episodes\EpisodeDeletedEvent;
 use Eduka\Cube\Events\Episodes\EpisodeRenamedEvent;
-use Eduka\Cube\Events\Episodes\EpisodeUpdatedEvent;
 use Eduka\Cube\Events\Episodes\EpisodeReplacedEvent;
-use Eduka\Services\Listeners\Users\LoggedInListener;
+use Eduka\Cube\Events\Episodes\EpisodeUpdatedEvent;
+use Eduka\Cube\Events\Orders\OrderCreatedEvent;
 use Eduka\Cube\Events\Subscribers\SubscriberCreatedEvent;
-use Eduka\Services\Listeners\Orders\OrderCreatedListener;
-use Eduka\Cube\Events\Episodes\EpisodeChapterUpdatedEvent;
-use Eduka\Services\Listeners\Courses\CourseCreatedListener;
-use Eduka\Services\Listeners\Courses\CourseDeletedListener;
-use Eduka\Services\Listeners\Courses\CourseRenamedListener;
-use Eduka\Services\Listeners\Variants\VariantSavedListener;
-use Eduka\Services\Listeners\Episodes\EpisodeDeleteListener;
-use Eduka\Services\Listeners\Episodes\EpisodeUpdateListener;
-use Eduka\Services\Listeners\Episodes\EpisodeUploadListener;
+use Eduka\Cube\Events\Variants\VariantSavedEvent;
+use Eduka\Services\Commands\TestCommand;
 use Eduka\Services\Listeners\Chapters\ChapterCreatedListener;
 use Eduka\Services\Listeners\Chapters\ChapterDeletedListener;
 use Eduka\Services\Listeners\Chapters\ChapterRenamedListener;
+use Eduka\Services\Listeners\Courses\CourseCreatedListener;
+use Eduka\Services\Listeners\Courses\CourseDeletedListener;
+use Eduka\Services\Listeners\Courses\CourseRenamedListener;
 use Eduka\Services\Listeners\Episodes\EpisodeChapterUpdateListener;
+use Eduka\Services\Listeners\Episodes\EpisodeDeleteListener;
+use Eduka\Services\Listeners\Episodes\EpisodeUpdateListener;
+use Eduka\Services\Listeners\Episodes\EpisodeUploadListener;
+use Eduka\Services\Listeners\Orders\OrderCreatedListener;
 use Eduka\Services\Listeners\Subscribers\SubscriberCreatedListener;
+use Eduka\Services\Listeners\Users\LoggedInListener;
+use Eduka\Services\Listeners\Variants\VariantSavedListener;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Support\Facades\Event;
 
 class ServicesServiceProvider extends EdukaServiceProvider
 {
