@@ -13,6 +13,7 @@ class EpisodeUploadListener extends EdukaListener
 {
     public function handle(EpisodeReplacedEvent $event)
     {
+        info('triggering batch for episode upload...');
         $batch = Bus::batch([
             // Upload episode to Vimeo.
             new UploadEpisodeVimeo($event->episode),
