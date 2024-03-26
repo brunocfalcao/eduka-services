@@ -4,7 +4,7 @@ namespace Eduka\Services\Listeners\Episodes;
 
 use Eduka\Abstracts\Classes\EdukaListener;
 use Eduka\Cube\Events\Episodes\EpisodeReplacedEvent;
-use Eduka\Services\Jobs\Vimeo\UploadEpisodeJob as UploadEpisodeVimeo;
+use Eduka\Services\Jobs\Vimeo\UploadVideoJob as UploadEpisodeVimeo;
 use Illuminate\Bus\Batch;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Storage;
@@ -13,7 +13,6 @@ class EpisodeUploadListener extends EdukaListener
 {
     public function handle(EpisodeReplacedEvent $event)
     {
-        info('triggering batch for episode upload...');
         $batch = Bus::batch([
             // Upload episode to Vimeo.
             new UploadEpisodeVimeo($event->episode),
