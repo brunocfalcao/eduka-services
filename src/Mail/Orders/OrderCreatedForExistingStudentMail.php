@@ -17,7 +17,7 @@ class OrderCreatedForExistingStudentMail extends Mailable
 
     public $message;
 
-    public User $student;
+    public Student $student;
 
     public Order $order;
 

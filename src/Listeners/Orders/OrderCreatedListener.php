@@ -5,7 +5,7 @@ namespace Eduka\Services\Listeners\Orders;
 use Eduka\Abstracts\Classes\EdukaListener;
 use Eduka\Cube\Events\Orders\OrderCreatedEvent;
 use Eduka\Cube\Models\Student;
-use Eduka\Services\Mail\Orders\OrderCreatedForExistingUserMail;
+use Eduka\Services\Mail\Orders\OrderCreatedForExistingStudentMail;
 use Eduka\Services\Mail\Orders\OrderCreatedForNewUserMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
@@ -34,9 +34,8 @@ class OrderCreatedListener extends EdukaListener
         $backend = $event->order->variant->course->backend;
 
         // Does the email exists within the same backend?
-        $student = User::where('email', $email)->firstOrCreate([
+        $student = Student::where('email', $email)->firstOrCreate([
             'email' => $email,
-            'backend_id' => $backend->id,
         ]);
 
         $student->update([
@@ -79,7 +78,7 @@ class OrderCreatedListener extends EdukaListener
             $url = 'https://'.$order->course->backend->domain;
 
             // Send email to the new student.
-            Mail::to($student)->send(new OrderCreatedForExistingUserMail($student, $order, $url));
+            Mail::to($student)->send(new OrderCreatedForExistingStudentMail($student, $order, $url));
         }
 
         nova_notify($order->course->admin, [
