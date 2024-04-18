@@ -33,14 +33,9 @@ class OrderCreatedListener extends EdukaListener
          */
         $backend = $event->order->variant->course->backend;
 
-        // Does the email exists within the same backend?
+        // Does the email exists?
         $student = Student::where('email', $email)->firstOrCreate([
             'email' => $email,
-        ]);
-
-        $student->update([
-            'name' => $order->student_name,
-            'password' => Str::random(20),
         ]);
 
         // Update student for order, right away.
@@ -48,11 +43,20 @@ class OrderCreatedListener extends EdukaListener
             'student_id' => $student->id,
         ]);
 
+        // Attach the user to the course.
+        $student->courses()->attach($event->order->variant->course->id);
+
         if ($student->wasRecentlyCreated) {
             /**
              * User was created on this lifecycle. We need to send
              * a welcome email, and a password reset link.
              */
+
+            // Update name and random password, for the first time.
+            $student->update([
+                'name' => $order->student_name,
+                'password' => Str::random(20),
+            ]);
 
             // Create a password reset token for the student.
             $token = Password::broker()->createToken($student);
