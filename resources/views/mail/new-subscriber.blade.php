@@ -1,42 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Mastering Nova Newsletter</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+        background-color: #f4f4f4;
+        font-family: Arial, sans-serif;
+    }
+    .email-container {
+        background-color: #ffffff;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .footer {
+        font-size: 12px;
+        text-align: center;
+        margin-top: 20px;
+        color: #666;
+    }
+</style>
 </head>
-<body style="margin: 0; padding: 0; background-color: #f0f0f0; font-family: 'Consolas', 'Courier New', monospace;">
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="padding: 30px; background-color: #f0f0f0;">
-        <tr>
-            <td align="center">
-                <!-- Logo Image -->
-                <img src="https://via.placeholder.com/100x100.png?text=Mastering+Nova" alt="Mastering Nova Logo" style="width: 100px; height: auto; margin-bottom: 20px;">
-                <!-- Content Table -->
-                <table width="800" border="0" cellspacing="0" cellpadding="0" style="border: 1px solid #ccc; background-color: #ffffff;"> <!-- Increased width from 600 to 800 -->
-                    <tr>
-                        <td align="center" style="padding: 20px; font-size: 24px;">
-                            Mastering Nova
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 20px; text-align: left; line-height: 1.6;">
-                            <p>Hey there!</p>
-                            <p>Thank you for your interest in subscribing for news of my upcoming course, <b><strong>{{ $subscriber->course->name }}</strong></b>!</p>
-                            <p>I will keep you updated about the launch date as soon as I have more clarity on it.</p>
-                            <p>I am currently recording this course, so if you would like to see a topic covered, let me know and I'll see if I can add it too.</p>
-                            <p>Best, <br/> Bruno</p>
-                        </td>
-                    </tr>
-                </table>
-                <!-- Footer Table -->
-                <table width="800" border="0" cellspacing="0" cellpadding="0" style="margin-top: 1px;"> <!-- Adjusted width to match content table -->
-                    <tr>
-                        <td style="padding: 10px; font-size: 12px; text-align: center; color: #666; line-height: 1;">
-                            <p style="margin-bottom: 4px;">Your email are kept private and never shared.</p>
-                            <p><a href="https://{{ $subscriber->course->domain }}">{{ $subscriber->course->domain }}</a> - All rights reserved</p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+<body>
+<div class="email-container">
+    <div class="header">
+        <img src="https://via.placeholder.com/150x50?text=Logo" alt="Course Logo" style="max-width: 150px;">
+    </div>
+    <p>Hi Bruno,</p>
+    <p>We are pleased to inform you about the upcoming updates to your courses. We hope you find these enhancements beneficial and they help you achieve your learning goals more efficiently.</p>
+    <p>Feel free to reach out to us with any questions or feedback you may have. We look forward to hearing from you!</p>
+    <p>Best,<br>Bruno</p>
+    <div class="footer">
+        Explore more at <a href="https://www.masteringnova.com" style="color: #007bff; text-decoration: none;">www.masteringnova.com</a>
+    </div>
+</div>
 </body>
 </html>
