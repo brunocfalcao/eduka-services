@@ -38,7 +38,7 @@ class SubscribedToCourseMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'eduka-services::mail.new-subscriber',
+            view: 'course::mailables.new-subscriber',
             with: [
                 'subscriber' => $this->subscriber,
             ]

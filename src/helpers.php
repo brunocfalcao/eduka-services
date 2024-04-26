@@ -2,6 +2,19 @@
 
 use Eduka\Cube\Models\Course;
 
+function push_course_filesystem_driver(Course $course)
+{
+    config([
+        'filesystems.disks.course' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/'.$course->canonical.'/'),
+            'url' => env('APP_URL').'/storage/'.$course->canonical.'/',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+    ]);
+}
+
 function eduka_mail_from(?Course $course)
 {
     // Get the admin user for the contextualized course.
