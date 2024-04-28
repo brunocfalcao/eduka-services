@@ -1,6 +1,26 @@
 <?php
 
 use Eduka\Cube\Models\Course;
+use Illuminate\Support\Facades\View;
+
+function register_course_view_namespace(Course $course)
+{
+    try {
+        // Create a ReflectionClass object for the class
+        $reflection = new ReflectionClass($course->provider_namespace);
+
+        // Get the file name where the class is defined
+        $filename = $reflection->getFileName();
+
+        // Replace all '\' to '/', get the directory path.
+        $path = str_replace('\\', '/', dirname($filename));
+
+        View::addNamespace('course', $path . '/../resources/views');
+    } catch (ReflectionException $e) {
+        // Handle the error appropriately if the class does not exist
+        echo 'Error: ' . $e->getMessage();
+    }
+}
 
 function push_course_filesystem_driver(Course $course)
 {
