@@ -107,7 +107,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
   </tr>
   <tr>
     <td align="center" class="center-text">
-      <a href="{{ Storage::disk('course')->url($subscriber->course->domain) }}" target="_blank"><img style="width:200px;border:0px;display:inline!important;" src="{{ Storage::disk('course')->url($subscriber->course->filename_logo) }}" width="200" border="0" alt="{{ Storage::disk('course')->url($subscriber->course->name) }}"></a>
+      <a href="{{ Storage::disk('course')->url($subscriber->course->domain) }}" target="_blank"><img style="width:200px;border:0px;display:inline!important;" src="{{ Storage::disk('course')->url($subscriber->course->filename_email_logo) }}" width="200" border="0" alt="{{ Storage::disk('course')->url($subscriber->course->name) }}"></a>
     </td>
   </tr>
   <tr>

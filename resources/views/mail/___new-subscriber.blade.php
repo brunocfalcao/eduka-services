@@ -107,7 +107,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
   </tr>
   <tr>
     <td align="center" class="center-text">
-      <img style="width:120px;border:0px;display:inline!important;" src="{{ Storage::disk('course')->url($subscriber->course->filename_logo) }}" border="0" alt="logo">
+      <img style="width:120px;border:0px;display:inline!important;" src="{{ Storage::disk('course')->url($subscriber->course->filename_email_logo) }}" border="0" alt="logo">
     </td>
   </tr>
   <tr>
