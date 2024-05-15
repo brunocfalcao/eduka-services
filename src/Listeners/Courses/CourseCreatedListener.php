@@ -7,7 +7,7 @@ use Eduka\Cube\Events\Courses\CourseCreatedEvent;
 use Eduka\Services\Jobs\Vimeo\UpsertFolderJob;
 use Illuminate\Bus\Batch;
 use Illuminate\Support\Facades\Bus;
-use PHPUnit\Event\Code\Throwable;
+use Throwable;
 
 class CourseCreatedListener extends EdukaListener
 {

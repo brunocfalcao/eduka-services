@@ -6,10 +6,6 @@ use Illuminate\Support\Facades\View;
 /**
  * Mostly used to render full urls on newsletters and jobs that
  * will render views that have a course contextualized somehow.
- *
- * @param  string $domain
- * @param  string $pathSuffix
- * @return string
  */
 function eduka_url(string $domain, ?string $pathSuffix = null): string
 {
@@ -19,20 +15,20 @@ function eduka_url(string $domain, ?string $pathSuffix = null): string
 
     // Use the provided domain directly
     // Construct the base URL with scheme and provided domain
-    $baseUrl = $urlParts['scheme'] . '://' . $domain;
+    $baseUrl = $urlParts['scheme'].'://'.$domain;
 
     // Check and append the port if available and if it's not a standard port
-    if (isset($urlParts['port']) && !in_array($urlParts['port'], [80, 443])) {
-        $baseUrl .= ':' . $urlParts['port'];
+    if (isset($urlParts['port']) && ! in_array($urlParts['port'], [80, 443])) {
+        $baseUrl .= ':'.$urlParts['port'];
     }
 
     // Finalize the URL construction
     $fullUrl = $baseUrl;
 
     // Append the path suffix if provided
-    if (!is_null($pathSuffix)) {
+    if (! is_null($pathSuffix)) {
         // Ensure there is exactly one '/' between segments
-        $fullUrl .= '/' . ltrim($pathSuffix, '/');
+        $fullUrl .= '/'.ltrim($pathSuffix, '/');
     }
 
     return $fullUrl;
@@ -50,10 +46,10 @@ function register_course_view_namespace(Course $course)
         // Replace all '\' to '/', get the directory path.
         $path = str_replace('\\', '/', dirname($filename));
 
-        View::addNamespace('course', $path . '/../resources/views');
+        View::addNamespace('course', $path.'/../resources/views');
     } catch (ReflectionException $e) {
         // Handle the error appropriately if the class does not exist
-        echo 'Error: ' . $e->getMessage();
+        echo 'Error: '.$e->getMessage();
     }
 }
 

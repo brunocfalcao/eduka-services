@@ -7,7 +7,7 @@ use Eduka\Cube\Events\Variants\VariantSavedEvent;
 use Eduka\Services\Jobs\LemonSqueezy\GetVariantJob;
 use Illuminate\Bus\Batch;
 use Illuminate\Support\Facades\Bus;
-use PHPUnit\Event\Code\Throwable;
+use Throwable;
 
 class VariantSavedListener extends EdukaListener
 {

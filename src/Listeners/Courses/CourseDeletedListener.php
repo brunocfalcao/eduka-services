@@ -7,7 +7,7 @@ use Eduka\Cube\Events\Courses\CourseDeletedEvent;
 use Eduka\Services\Jobs\Vimeo\DeleteFolderJob;
 use Illuminate\Bus\Batch;
 use Illuminate\Support\Facades\Bus;
-use PHPUnit\Event\Code\Throwable;
+use Throwable;
 
 class CourseDeletedListener extends EdukaListener
 {
