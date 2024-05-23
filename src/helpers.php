@@ -13,9 +13,11 @@ function eduka_url(string $domain, ?string $pathSuffix = null): string
     $appUrl = env('APP_URL', 'http://localhost:8000');
     $urlParts = parse_url($appUrl);
 
-    // Use the provided domain directly
+    // Ensure scheme is set correctly
+    $scheme = $urlParts['scheme'] ?? 'http';
+
     // Construct the base URL with scheme and provided domain
-    $baseUrl = $urlParts['scheme'].'://'.$domain;
+    $baseUrl = $scheme.'://'.$domain;
 
     // Check and append the port if available and if it's not a standard port
     if (isset($urlParts['port']) && ! in_array($urlParts['port'], [80, 443])) {
