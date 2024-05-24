@@ -2,38 +2,15 @@
 
 use Eduka\Cube\Models\Course;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Mostly used to render full urls on newsletters and jobs that
  * will render views that have a course contextualized somehow.
  */
-function eduka_url(string $domain, ?string $pathSuffix = null): string
+function eduka_url(string $pathSuffix = null): string
 {
-    // Fetch the base URL components from the .env file, with sensible defaults
-    $appUrl = env('APP_URL', 'http://localhost:8000');
-    $urlParts = parse_url($appUrl);
-
-    // Ensure scheme is set correctly
-    $scheme = $urlParts['scheme'] ?? 'http';
-
-    // Construct the base URL with scheme and provided domain
-    $baseUrl = $scheme.'://'.$domain;
-
-    // Check and append the port if available and if it's not a standard port
-    if (isset($urlParts['port']) && ! in_array($urlParts['port'], [80, 443])) {
-        $baseUrl .= ':'.$urlParts['port'];
-    }
-
-    // Finalize the URL construction
-    $fullUrl = $baseUrl;
-
-    // Append the path suffix if provided
-    if (! is_null($pathSuffix)) {
-        // Ensure there is exactly one '/' between segments
-        $fullUrl .= '/'.ltrim($pathSuffix, '/');
-    }
-
-    return $fullUrl;
+    return env('APP_URL') . '/' . Storage::url($pathSuffix);
 }
 
 function register_course_view_namespace(Course $course)
