@@ -1,16 +1,16 @@
 <?php
 
 use Eduka\Cube\Models\Course;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
 
 /**
  * Mostly used to render full urls on newsletters and jobs that
  * will render views that have a course contextualized somehow.
  */
-function eduka_url(string $pathSuffix = null): string
+function eduka_url(?string $pathSuffix = null): string
 {
-    return env('APP_URL') . '/' . Storage::url($pathSuffix);
+    return env('APP_URL').'/'.Storage::url($pathSuffix);
 }
 
 function register_course_view_namespace(Course $course)
