@@ -42,9 +42,9 @@ class SubscribedToCourseMail extends Mailable
         return new Content(
             view: 'course::mailables.new-subscriber',
             with: [
-                'subscriber' => $this->subscriber,
-                'course' => $this->subscriber->course,
-                'theme' => $this->subscriber->course->theme,
+                'entity' => $this->subscriber->course,
+                'subject' => $this->subscriber->course->name.' - Thanks for subscribing!',
+                'preview' => $this->subscriber->course->name.' - Thanks for subscribing!',
             ]
         );
     }
