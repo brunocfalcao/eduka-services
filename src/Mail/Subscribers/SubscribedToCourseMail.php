@@ -22,7 +22,7 @@ class SubscribedToCourseMail extends Mailable
     {
         $this->subscriber = $subscriber;
         // Register the course view namespace, on the 'course' prefix.
-        //register_course_view_namespace($this->subscriber->course);
+        register_course_view_namespace($this->subscriber->course);
     }
 
     public function envelope()
