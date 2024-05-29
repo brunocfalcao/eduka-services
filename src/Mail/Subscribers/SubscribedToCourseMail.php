@@ -23,6 +23,9 @@ class SubscribedToCourseMail extends Mailable
         $this->subscriber = $subscriber;
         // Register the course view namespace, on the 'course' prefix.
         register_course_view_namespace($this->subscriber->course);
+
+        // Override APP URL.
+        override_app_url($this->subscriber->course->domain);
     }
 
     public function envelope()
@@ -39,8 +42,10 @@ class SubscribedToCourseMail extends Mailable
 
     public function content()
     {
+        $view = course_or_eduka_view('mailables.new-subscriber');
+
         return new Content(
-            view: 'course::mailables.new-subscriber',
+            view: $view,
             with: [
                 'course' => $this->subscriber->course,
                 'preview' => $this->subscriber->course->name.' - Thanks for subscribing!',

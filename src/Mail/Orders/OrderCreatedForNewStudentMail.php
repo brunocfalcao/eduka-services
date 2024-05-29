@@ -31,6 +31,9 @@ class OrderCreatedForNewStudentMail extends Mailable
 
         // Register the course view namespace, on the 'course' prefix.
         register_course_view_namespace($this->order->course);
+
+        // Override APP URL.
+        override_app_url($this->order->course->domain);
     }
 
     public function envelope()
@@ -48,9 +51,7 @@ class OrderCreatedForNewStudentMail extends Mailable
     public function content()
     {
         // Do we have a course view for this mailable?
-        $view = view()->exists('course::mailables.new-order-new-student') ?
-                'course::mailables.new-order-new-student' :
-                'eduka::mailables.new-order-new-student';
+        $view = course_or_eduka_view('mailables.new-order-new-student');
 
         return new Content(
             view: $view,

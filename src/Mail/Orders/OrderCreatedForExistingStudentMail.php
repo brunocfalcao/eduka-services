@@ -45,9 +45,8 @@ class OrderCreatedForExistingStudentMail extends Mailable
     public function content()
     {
         // Do we have a course view for this mailable?
-        $view = view()->exists('course::new-order-existing-student') ?
-                'course::mailables.new-order-existing-student' :
-                'eduka::mailables.new-order-existing-student';
+
+        $view = course_or_eduka_view('mailables.new-order-existing-student');
 
         return new Content(
             view: $view,

@@ -42,20 +42,9 @@ class ServicesServiceProvider extends EdukaServiceProvider
         $this->dir = __DIR__;
 
         $this->registerEvents();
-        $this->registerViews();
         $this->registerCommands();
 
         parent::boot();
-    }
-
-    public function register()
-    {
-        //
-    }
-
-    protected function registerViews()
-    {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'eduka-services');
     }
 
     protected function registerEvents()
