@@ -6,13 +6,16 @@ use Eduka\Abstracts\Classes\EdukaListener;
 use Eduka\Cube\Events\Orders\OrderCreatedEvent;
 use Eduka\Cube\Models\Student;
 use Eduka\Services\Mail\Orders\OrderCreatedForExistingStudentMail;
-use Eduka\Services\Mail\Orders\OrderCreatedForNewUserMail;
+use Eduka\Services\Mail\Orders\OrderCreatedForNewStudentMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
 class OrderCreatedListener extends EdukaListener
 {
+    // We can't retry, if so, the user is created twice.
+    public $tries = 1;
+
     public function handle(OrderCreatedEvent $event)
     {
         /**
@@ -71,18 +74,15 @@ class OrderCreatedListener extends EdukaListener
             );
 
             // Send email to the new student.
-            Mail::to($student)->send(new OrderCreatedForNewUserMail($student, $order, $url));
+            Mail::to($student)->send(new OrderCreatedForNewStudentMail($student, $order, $url));
         } else {
             /**
              * User already exists. We need to send a thank you for buying
              * email and a link to access the website (backend).
              */
 
-            // Construct password reset url.
-            $url = 'https://'.$order->course->backend->domain;
-
             // Send email to the new student.
-            Mail::to($student)->send(new OrderCreatedForExistingStudentMail($student, $order, $url));
+            Mail::to($student)->send(new OrderCreatedForExistingStudentMail($student, $order));
         }
 
         nova_notify($order->course->admin, [

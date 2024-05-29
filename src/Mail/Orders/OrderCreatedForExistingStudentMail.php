@@ -21,13 +21,13 @@ class OrderCreatedForExistingStudentMail extends Mailable
 
     public Order $order;
 
-    public $url;
-
-    public function __construct(Student $student, Order $order, string $url)
+    public function __construct(Student $student, Order $order)
     {
         $this->student = $student;
         $this->order = $order;
-        $this->url = $url;
+
+        // Register the course view namespace, on the 'course' prefix.
+        register_course_view_namespace($this->order->course);
     }
 
     public function envelope()
@@ -44,11 +44,16 @@ class OrderCreatedForExistingStudentMail extends Mailable
 
     public function content()
     {
+        // Do we have a course view for this mailable?
+        $view = view()->exists('course::new-order-existing-student') ?
+                'course::mailables.new-order-existing-student' :
+                'eduka::mailables.new-order-existing-student';
+
         return new Content(
-            view: 'eduka-services::mail.new-order-for-existing-student',
+            view: $view,
             with: [
                 'order' => $this->order,
-                'url' => $this->url,
+                'student' => $this->student,
             ]
         );
     }

@@ -3,6 +3,7 @@
 namespace Eduka\Services\Mail\Orders;
 
 use Eduka\Cube\Models\Order;
+use Eduka\Cube\Models\Student;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Address;
@@ -16,17 +17,20 @@ class OrderCreatedForNewStudentMail extends Mailable
 
     public $message;
 
-    public User $student;
+    public Student $student;
 
     public Order $order;
 
     public string $resetLink;
 
-    public function __construct(User $student, Order $order, string $resetLink)
+    public function __construct(Student $student, Order $order, string $resetLink)
     {
         $this->student = $student;
         $this->order = $order;
         $this->resetLink = $resetLink;
+
+        // Register the course view namespace, on the 'course' prefix.
+        register_course_view_namespace($this->order->course);
     }
 
     public function envelope()
@@ -43,8 +47,13 @@ class OrderCreatedForNewStudentMail extends Mailable
 
     public function content()
     {
+        // Do we have a course view for this mailable?
+        $view = view()->exists('course::mailables.new-order-new-student') ?
+                'course::mailables.new-order-new-student' :
+                'eduka::mailables.new-order-new-student';
+
         return new Content(
-            view: 'eduka-services::mail.new-order-for-new-student',
+            view: $view,
             with: [
                 'order' => $this->order,
                 'resetLink' => $this->resetLink,
