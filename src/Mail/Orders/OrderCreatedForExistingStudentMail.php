@@ -27,7 +27,7 @@ class OrderCreatedForExistingStudentMail extends Mailable
         $this->order = $order;
 
         // Register the course view namespace, on the 'course' prefix.
-        register_course_view_namespace($this->order->course);
+        push_course_view_namespace($this->order->course);
     }
 
     public function envelope()

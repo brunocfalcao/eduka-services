@@ -11,6 +11,12 @@ class SubscriberCreatedListener extends EdukaListener
 {
     public function handle(SubscriberCreatedEvent $event)
     {
+        // Register the course view namespace, on the 'course' prefix.
+        push_course_view_namespace($event->subscriber->course);
+
+        // Register the storage eduka disk.
+        push_eduka_filesystem_disk($event->subscriber->course);
+
         // Send thanks for subscribing email.
         Mail::to($event->subscriber->email)->send(new SubscribedToCourseMail($event->subscriber));
 

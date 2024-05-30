@@ -21,9 +21,6 @@ class SubscribedToCourseMail extends Mailable
     public function __construct(Subscriber $subscriber)
     {
         $this->subscriber = $subscriber;
-
-        // Register the course view namespace, on the 'course' prefix.
-        register_course_view_namespace($this->subscriber->course);
     }
 
     public function envelope()
