@@ -21,18 +21,16 @@ class SubscribedToCourseMail extends Mailable
     public function __construct(Subscriber $subscriber)
     {
         $this->subscriber = $subscriber;
+
         // Register the course view namespace, on the 'course' prefix.
         register_course_view_namespace($this->subscriber->course);
-
-        // Override APP URL.
-        override_app_url($this->subscriber->course->domain);
     }
 
     public function envelope()
     {
         $address = new Address(
-            eduka_mail_from($this->subscriber->course),
-            eduka_mail_name($this->subscriber->course)
+            $this->subscriber->course->admin->email,
+            $this->subscriber->course->admin->name
         );
 
         $subject = sprintf('Thanks for subscribing to %s', $this->subscriber->course->name);
@@ -42,7 +40,7 @@ class SubscribedToCourseMail extends Mailable
 
     public function content()
     {
-        $view = course_or_eduka_view('mailables.new-subscriber');
+        $view = eduka_view_or('course::mailables.new-subscriber');
 
         return new Content(
             view: $view,

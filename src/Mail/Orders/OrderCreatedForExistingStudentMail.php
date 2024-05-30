@@ -33,8 +33,8 @@ class OrderCreatedForExistingStudentMail extends Mailable
     public function envelope()
     {
         $address = new Address(
-            eduka_mail_from($this->order->course),
-            eduka_mail_name($this->order->course)
+            $this->order->course->admin->email,
+            $this->order->course->admin->name
         );
 
         $subject = sprintf('Thanks for buying %s', $this->order->course->name);
