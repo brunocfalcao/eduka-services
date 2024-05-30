@@ -49,7 +49,7 @@ class OrderCreatedListener extends EdukaListener
         // Attach the user to the course.
         $student->courses()->attach($event->order->variant->course->id);
 
-        // Override app.url with the right url prefix.
+        // Override app.url with the right url prefix. For eduka_route().
         override_app_url($order->course->backend->domain);
 
         if ($student->wasRecentlyCreated) {
@@ -67,7 +67,7 @@ class OrderCreatedListener extends EdukaListener
             // Create a password reset token for the student.
             $token = Password::broker()->createToken($student);
 
-            // Construct password reset url.
+            // Construct password reset url (using eduka route).
             $url = eduka_route(
                 'password.reset',
                 [
