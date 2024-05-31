@@ -49,6 +49,12 @@ class OrderCreatedListener extends EdukaListener
         // Attach the user to the course.
         $student->courses()->attach($event->order->variant->course->id);
 
+        // Register the course view namespace, on the 'course' prefix.
+        push_course_view_namespace($event->order->course);
+
+        // Register the storage eduka disk.
+        push_eduka_filesystem_disk($event->order->course);
+
         if ($student->wasRecentlyCreated) {
             /**
              * User was created on this lifecycle. We need to send
