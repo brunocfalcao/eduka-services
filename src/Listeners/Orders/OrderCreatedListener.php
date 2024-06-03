@@ -80,6 +80,8 @@ class OrderCreatedListener extends EdukaListener
                 ]
             );
 
+            info('URL: ' . $url);
+
             // Send email to the new student.
             Mail::to($student)->send(new OrderCreatedForNewStudentMail($student, $order, $url));
         } else {
