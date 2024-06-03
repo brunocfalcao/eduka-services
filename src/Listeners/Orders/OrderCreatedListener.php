@@ -80,9 +80,9 @@ class OrderCreatedListener extends EdukaListener
                 ]
             );
 
-            info('URL (backend domain): ' . $order->course->backend->domain);
-            info('Token: ' . $token);
-            info('Student email: ' . urlencode($student->email));
+            info('URL (backend domain): '.$order->course->backend->domain);
+            info('Token: '.$token);
+            info('Student email: '.urlencode($student->email));
 
             // Send email to the new student.
             Mail::to($student)->send(new OrderCreatedForNewStudentMail($student, $order, $url));
