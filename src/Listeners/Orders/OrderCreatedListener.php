@@ -18,8 +18,6 @@ class OrderCreatedListener extends EdukaListener
 
     public function handle(OrderCreatedEvent $event)
     {
-        info('order -- listener started ... ');
-
         /**
          * Order is created. Someone bought your course!
          * 1. Verify if it's a new student or a recurring student.
@@ -58,8 +56,6 @@ class OrderCreatedListener extends EdukaListener
         push_eduka_filesystem_disk($event->order->course);
 
         if ($student->wasRecentlyCreated) {
-            info('order -- it is a new user ... ');
-
             /**
              * User was created on this lifecycle. We need to send
              * a welcome email, and a password reset link.
@@ -83,8 +79,6 @@ class OrderCreatedListener extends EdukaListener
                     'email' => urlencode($student->email),
                 ]
             );
-
-            info('order -- listener completed, now triggering mailable ... ');
 
             // Send email to the new student.
             Mail::to($student)->send(new OrderCreatedForNewStudentMail($student, $order, $url));

@@ -28,8 +28,6 @@ class OrderCreatedForNewStudentMail extends Mailable
         $this->student = $student;
         $this->order = $order;
         $this->resetLink = $resetLink;
-
-        info('mailable -- constructor started ... ');
     }
 
     public function envelope()
@@ -48,8 +46,6 @@ class OrderCreatedForNewStudentMail extends Mailable
     {
         // Do we have a course view for this mailable?
         $view = eduka_view_or('course::mailables.new-order-new-student');
-
-        info('mailable -- returning view and sending email ... ');
 
         return new Content(
             view: $view,
