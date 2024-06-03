@@ -15,7 +15,7 @@ class SubscriberCreatedListener extends EdukaListener
         push_course_view_namespace($event->subscriber->course);
 
         // Register the storage eduka disk.
-        push_eduka_filesystem_disk($event->subscriber->course);
+        push_canonical_filesystem_disk($event->subscriber->course->canonical);
 
         // Send thanks for subscribing email.
         Mail::to($event->subscriber->email)->send(new SubscribedToCourseMail($event->subscriber));

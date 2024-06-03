@@ -53,7 +53,7 @@ class OrderCreatedListener extends EdukaListener
         push_course_view_namespace($event->order->course);
 
         // Register the storage eduka disk.
-        push_eduka_filesystem_disk($event->order->course);
+        push_canonical_filesystem_disk($event->order->course->canonical);
 
         if ($student->wasRecentlyCreated) {
             /**
