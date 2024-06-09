@@ -50,7 +50,7 @@ class OrderCreatedListener extends EdukaListener
         $student->courses()->attach($event->order->variant->course->id);
 
         // Register the course view namespace, on the 'course' prefix.
-        push_course_view_namespace($event->order->course);
+        // push_model_view_namespace($event->order->course);
 
         // Register the storage eduka disk.
         push_canonical_filesystem_disk($event->order->course->canonical);
@@ -71,7 +71,7 @@ class OrderCreatedListener extends EdukaListener
             $token = Password::broker()->createToken($student);
 
             // Construct password reset url (using eduka route).
-            $url = eduka_route(
+            $url = route_with_custom_domain(
                 $order->course->backend->domain,
                 'password.reset',
                 [

@@ -12,7 +12,7 @@ class SubscriberCreatedListener extends EdukaListener
     public function handle(SubscriberCreatedEvent $event)
     {
         // Register the course view namespace, on the 'course' prefix.
-        push_course_view_namespace($event->subscriber->course);
+        push_model_view_namespace($event->subscriber->course);
 
         // Register the storage eduka disk.
         push_canonical_filesystem_disk($event->subscriber->course->canonical);
