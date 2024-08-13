@@ -29,7 +29,7 @@ class GetVariantJob implements ShouldQueue
             $this->variant->course->lemon_squeezy_api_key
         );
 
-        $data = $api->getVariant($this->variant->lemon_squeezy_variant_id);
+        $data = $api->getVariant($this->variant->product_id);
 
         $this->variant->withoutEvents(function () use ($data) {
             $this->variant->update(['lemon_squeezy_data' => Arr::dot(json_decode($data, true))]);
