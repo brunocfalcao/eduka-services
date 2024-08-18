@@ -3,8 +3,7 @@
 namespace Eduka\Services\Commands;
 
 use Eduka\Abstracts\Classes\EdukaCommand;
-use Eduka\Cube\Models\Episode;
-use Illuminate\Support\Str;
+use Eduka\Cube\Models\Course;
 
 class TestCommand extends EdukaCommand
 {
@@ -19,12 +18,11 @@ class TestCommand extends EdukaCommand
 
     public function handle()
     {
+        //dd(Course::find(2)->getFirstMediaUrl(conversionName: 'thumbnail'));
 
-        $episode = Episode::whereNotNull('vimeo_uri')->first();
+        //$thumbnailUrl = Course::find(4)->getFirstMediaUrl('main', 'thumbnail');
 
-        $episode->name = 'Roger that '.Str::Random(10);
-
-        $episode->save();
+        //dd($thumbnailUrl);
 
         $this->info('All good.');
     }
